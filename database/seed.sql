@@ -1,4 +1,6 @@
 
+-- // This file is not needed
+
 CREATE TABLE users (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   first_name varchar(250) NOT NULL,

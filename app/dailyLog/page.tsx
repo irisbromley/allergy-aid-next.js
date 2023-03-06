@@ -1,13 +1,16 @@
+import { getUsers } from './database/users';
+
 export const metadata = {
   title: 'Track your pollen allergy sypmtoms',
   description: 'Daily Pollen Allergy Symptoms Tracker',
 };
 
-export default function DailyLogPage() {
+export default async function DailyLogPage() {
+  const users = await getUsers();
   return (
     <main>
-      <h1>How are you feeling today?</h1>
-      
+      <h2>Hello </h2>
+      <p>How are you feeling today?</p>
     </main>
   );
 }

@@ -42,3 +42,6 @@ As my final project I decided to make a pollen allergy tracker where the user ca
 Link to my drawSQL <iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/teams/allergy-tracker-app/diagrams/initial/embed"></iframe>
 
 Link to my Figma Wireframe
+
+run sql file in psql in the terminal
+psql -U pollen_allergy_tracker -d next_js_pollen_allergy_tracker -a -f database/test-data.sql
