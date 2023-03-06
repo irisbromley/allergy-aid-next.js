@@ -3,7 +3,8 @@ const nextConfig = {
   experimental: {
     appDir: true,
     typedRoutes: true,
+    serverComponentsExternalPackages: ['bcrypt'],
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
