@@ -1,8 +1,10 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Track your pollen allergy sypmtoms',
   description: 'Daily Pollen Allergy Symptoms Tracker',
+  icons: '/favicon.ico',
 };
 
 export default function RootLayout({
@@ -12,13 +14,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head />
+
       <body>
         <header>
           <nav>
-            <Link href="/">Home</Link>
-            <Link href="/register">Register</Link>
             <Link href="/settings">Settings</Link>
-            <Link href="/dailyLog">Daily Log</Link>
+            <Link href="/dailyLog">Log Your Day</Link>
           </nav>
         </header>
         {children}

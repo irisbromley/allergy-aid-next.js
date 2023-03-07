@@ -1,21 +1,17 @@
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import {
-  createUser,
-  getUserByEmailWithPasswordHash,
-} from '../../../../database/users';
+import { getUserByEmailWithPasswordHash } from '../../../../database/users';
 
 // creating a schema for strings
 const userSchema = z.object({
-  firstname: z.string(),
   email: z.string(),
   password: z.string(),
 });
 
 export type RegisterResponseBody =
   | { errors: { message: string }[] }
-  | { user: { email: string } };
+  | { user: { email: string }[] };
 
 export const POST = async (request: NextRequest) => {
   const body = await request.json();
@@ -33,29 +29,28 @@ export const POST = async (request: NextRequest) => {
     );
   }
 
-  const user = await getUserByEmailWithPasswordHash(result.data.email);
-
-  if (user) {
-    return NextResponse.json(
-      { errors: [{ message: 'email is already taken' }] },
-      { status: 400 },
-    );
-  }
-
-  const passwordHash = await bcrypt.hash(result.data.password, 12);
-
-  const newUser = await createUser(
-    result.data.firstname,
+  const userWithPasswordHash = await getUserByEmailWithPasswordHash(
     result.data.email,
-    passwordHash,
   );
 
-  if (!newUser) {
+  if (!userWithPasswordHash) {
     return NextResponse.json(
-      { errors: [{ message: 'user creation failed' }] },
-      { status: 500 },
+      { errors: [{ message: 'not found' }] },
+      { status: 401 },
     );
   }
 
-  return NextResponse.json({ user: { email: { email: newUser.email } } });
+  const passwordIsValid = await bcrypt.compare(
+    result.data.password,
+    userWithPasswordHash.passwordHash,
+  );
+
+  if (!passwordIsValid) {
+    return NextResponse.json(
+      { errors: [{ message: 'password is not valid' }] },
+      { status: 401 },
+    );
+  }
+
+  return NextResponse.json({ user: { email: userWithPasswordHash.email } });
 };

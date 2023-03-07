@@ -1,57 +1,40 @@
 const users = [
   {
     id: 1,
-    first_name: 'Joe',
-    last_name: 'Bloggs',
+    firstname: 'Joe',
     email: 'joe@test.com',
     password_hash: '',
   },
   {
     id: 2,
-    first_name: 'Minnie',
-    last_name: 'Mouse',
+    firstname: 'Minnie',
     email: 'mini@test.com',
+
     password_hash: '',
   },
   {
     id: 3,
-    first_name: 'Wim',
-    last_name: 'Wenders',
+    firstname: 'TheMonolith',
     email: 'wim@test.com',
     password_hash: '',
   },
-  {
-    id: 4,
-    first_name: 'Max',
-    last_name: 'Muster',
-    email: 'joe@test.com',
-    password_hash: '',
-  },
+
   {
     id: 5,
-    first_name: 'Christopher',
-    last_name: 'Columbus',
+    firstname: 'MrAmerica',
     email: 'chris@america.com',
     password_hash: '',
   },
-  {
-    id: 6,
-    first_name: 'Axel',
-    last_name: 'Schweiss',
-    email: 'axel@test.com',
-    password_hash: '',
-  },
+
   {
     id: 7,
-    first_name: 'Stan',
-    last_name: 'Kubrik',
+    firstname: 'StanBoy',
     email: 'stanly@test.com',
     password_hash: '',
   },
   {
     id: 8,
-    first_name: 'Franz',
-    last_name: 'Franitzky',
+    firstname: 'Franzi',
     email: 'fran@test.com',
     password_hash: '',
   },
@@ -59,13 +42,7 @@ const users = [
 
 export async function up(sql) {
   await sql`
-INSERT INTO users ${sql(
-    users,
-    'first_name',
-    'last_name',
-    'email',
-    'password_hash',
-  )}
+INSERT INTO users ${sql(users, 'firstname', 'email', 'password_hash')}
 `;
 }
 

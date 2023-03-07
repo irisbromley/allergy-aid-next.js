@@ -4,8 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 
-export default function RegisterForm() {
-  const [firstname, setFirstname] = useState('');
+export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -16,9 +15,9 @@ export default function RegisterForm() {
       onSubmit={async (event) => {
         event.preventDefault();
 
-        const response = await fetch('/api/register', {
+        const response = await fetch('/api/login', {
           method: 'POST',
-          body: JSON.stringify({ firstname, email, password }),
+          body: JSON.stringify({ email, password }),
         });
 
         const data: RegisterResponseBody = await response.json();
@@ -27,20 +26,13 @@ export default function RegisterForm() {
           setErrors(data.errors);
           return;
         }
-
+        console.log(data.user);
         router.push(`./../dailyLog/${data.user.email}`);
       }}
     >
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
-      <label>
-        Firstname:
-        <input
-          value={firstname}
-          onChange={(event) => setFirstname(event.currentTarget.value)}
-        />
-      </label>
       <label>
         Email:
         <input
@@ -53,12 +45,13 @@ export default function RegisterForm() {
         Password:
         <input
           type="password"
+          minLength={4}
           title="Password should be digits (0 to 9) or alphabets (a to z)."
           value={password}
           onChange={(event) => setPassword(event.currentTarget.value)}
         />
       </label>
-      <button>Register</button>
+      <button>Login</button>
     </form>
   );
 }
