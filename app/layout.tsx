@@ -19,13 +19,13 @@ export default function RootLayout({
 
       <body>
         <header>
-          <nav className="relative container mx-auto p-6">
+          <nav className="relative container mx-auto max-w-md p-6 md:max-w-lg ">
             <Link href="/settings">Settings</Link>
             <Link href="/daily-log">Log Your Day</Link>
             <Link href="/logout">Logout</Link>
           </nav>
         </header>
-        {children}
+        <div className="mx-auto max-w-md md:max-w-lg">{children}</div>
       </body>
     </html>
   );

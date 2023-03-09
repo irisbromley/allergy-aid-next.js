@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../database/sessions';
 import { getUserByEmailWithPasswordHash } from '../../../../database/users';
+import { createSerializedRegisterSessionTokenCookie } from '../../../../utils/cookies';
 
 // creating a schema for strings
 const userSchema = z.object({
@@ -60,5 +61,22 @@ export const POST = async (request: NextRequest) => {
   const session = await createSession(token, userWithPasswordHash.id);
   console.log(session);
 
-  return NextResponse.json({ user: { email: userWithPasswordHash.email } });
+  if (!session) {
+    return NextResponse.json(
+      { errors: [{ message: 'session not created' }] },
+      { status: 500 },
+    );
+  }
+
+  const serializedCookie = createSerializedRegisterSessionTokenCookie(
+    session.token,
+  );
+
+  return NextResponse.json(
+    { user: { email: userWithPasswordHash.email } },
+    {
+      status: 200,
+      headers: { 'Set-Cookie': serializedCookie },
+    },
+  );
 };
