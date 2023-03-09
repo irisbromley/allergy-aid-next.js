@@ -26,8 +26,16 @@ export default function LoginForm() {
           setErrors(data.errors);
           return;
         }
-        console.log(data.user);
-        router.push(`./../dailyLog/${data.user.email}`);
+        // // Validate the input data with regex but is not working
+        // if (
+        //   props.returnTo &&
+        //   !Array.isArray(props.returnTo) &&
+        //   /^\[a-zA-Z0-9-?=/]*$/.test(props.returnTo)
+        //   ) {
+        //   router.push(props.returnTo);
+        //   return;
+        // }
+        router.push(`/../dailyLog/${data.user.email}`);
       }}
     >
       {errors.map((error) => (
@@ -51,7 +59,9 @@ export default function LoginForm() {
           onChange={(event) => setPassword(event.currentTarget.value)}
         />
       </label>
-      <button>Login</button>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Login
+      </button>
     </form>
   );
 }

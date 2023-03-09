@@ -5,8 +5,8 @@ import LoginForm from './(auth)/login/LoginForm';
 export const metadata = {
   title: 'Home',
   description: 'Daily Pollen Allergy Symptoms Tracker',
-  
 };
+
 export const dynamic = 'force-dynamic';
 
 export default function Home() {

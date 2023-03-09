@@ -1,3 +1,4 @@
+import './global.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -18,9 +19,10 @@ export default function RootLayout({
 
       <body>
         <header>
-          <nav>
+          <nav className="relative container mx-auto p-6">
             <Link href="/settings">Settings</Link>
             <Link href="/dailyLog">Log Your Day</Link>
+            <Link href="/logout">Logout</Link>
           </nav>
         </header>
         {children}
