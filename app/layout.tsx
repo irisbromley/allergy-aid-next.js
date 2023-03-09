@@ -21,7 +21,7 @@ export default function RootLayout({
         <header>
           <nav className="relative container mx-auto p-6">
             <Link href="/settings">Settings</Link>
-            <Link href="/dailyLog">Log Your Day</Link>
+            <Link href="/daily-log">Log Your Day</Link>
             <Link href="/logout">Logout</Link>
           </nav>
         </header>

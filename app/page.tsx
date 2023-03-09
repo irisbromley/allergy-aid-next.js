@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import LoginForm from './(auth)/login/LoginForm';
+import LoginForm from './LoginForm';
 
 export const metadata = {
   title: 'Home',

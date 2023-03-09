@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { RegisterResponseBody } from '../../api/(auth)/register/route';
+import { RegisterResponseBody } from './api/(auth)/register/route';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
