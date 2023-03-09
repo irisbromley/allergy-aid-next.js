@@ -17,9 +17,11 @@ CREATE TABLE persons (
   await sql`
 CREATE TABLE sessions (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  token varchar(250) NOT NULL,
-  user_id integer NOT NULL,
-  expiry_timestamp integer NOT NULL
+  token varchar(250) NOT NULL UNIQUE,
+  expiry_timestamp timestamp NOT NULL DEFAULT NOW() + INTERVAL '24 hours',
+  -- ON DELETE CASCADE to be added
+  user_id integer REFERENCES users(id) NOT NULL
+
 )`;
 
   await sql`
