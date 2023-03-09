@@ -1,6 +1,8 @@
+import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { createSession } from '../../../../database/sessions';
 import { getUserByEmailWithPasswordHash } from '../../../../database/users';
 
 // creating a schema for strings
@@ -51,6 +53,12 @@ export const POST = async (request: NextRequest) => {
       { status: 401 },
     );
   }
+
+  // session goes here
+  const token = crypto.randomBytes(80).toString('base64');
+
+  const session = await createSession(token, userWithPasswordHash.id);
+  console.log(session);
 
   return NextResponse.json({ user: { email: userWithPasswordHash.email } });
 };
