@@ -1,10 +1,9 @@
-// import { cache } from 'react';
 import { cache } from 'react';
 import { sql } from './connect';
 
 type User = {
   id: number;
-  firstname: string;
+  name: string;
   email: string;
   passwordHash: string;
 };
@@ -22,37 +21,45 @@ export const getUserByEmailWithPasswordHash = cache(async (email: string) => {
 });
 
 export const getUserByEmail = cache(async (email: string) => {
-  const [user] = await sql<
-    {
-      firstname: string;
-      id: number;
-      email: string;
-    }[]
-  >`
-  SELECT
-  id,
-  firstname,
-  email
-  FROM
-  users
+  const [user] = await sql<{ name: string; id: number; email: string }[]>`
+  SELECT id, name, email
+  FROM users
   WHERE
   email = ${email}
 `;
   return user;
 });
 
+export const getPersonInUser = cache(async (name: string) => {
+  const [person] = await sql<{ name: string; user_id: number }[]>`
+  SELECT "name", user_id
+  FROM persons
+  WHERE
+  "name" = ${name}`;
+  return person;
+});
+
 export const createUser = cache(
-  async (firstname: string, email: string, passwordHash: string) => {
-    const [user] = await sql<
-      { id: number; firstname: string; email: string }[]
-    >`
+  async (name: string, email: string, passwordHash: string) => {
+    const [user] = await sql<{ id: number; name: string; email: string }[]>`
     INSERT INTO users
-    (firstname, email, password_hash)
+    (name, email, password_hash)
     VALUES
-    (${firstname}, ${email}, ${passwordHash})
+    (${name}, ${email}, ${passwordHash})
     RETURNING
-    id, firstname, email
+    id, name, email
   `;
     return user;
   },
 );
+export const createPerson = cache(async (name: string, userId: number) => {
+  const [person] = await sql<{ id: number; name: string; user_id: number }[]>`
+    INSERT INTO persons
+    (name,user_id)
+    VALUES
+    (${name}, ${userId})
+    RETURNING
+    id, name, user_id
+  `;
+  return person;
+});

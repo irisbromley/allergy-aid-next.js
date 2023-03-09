@@ -11,7 +11,7 @@ CREATE TABLE users (
 CREATE TABLE persons (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   "name" varchar(250) NOT NULL,
-  user_id integer NOT NULL,
+  user_id integer NOT NULL
 )`;
 
   await sql`

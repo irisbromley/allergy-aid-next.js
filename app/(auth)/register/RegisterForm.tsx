@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 
 export default function RegisterForm() {
-  const [firstname, setFirstname] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -18,7 +18,7 @@ export default function RegisterForm() {
 
         const response = await fetch('/api/register', {
           method: 'POST',
-          body: JSON.stringify({ firstname, email, password }),
+          body: JSON.stringify({ name, email, password }),
         });
 
         const data: RegisterResponseBody = await response.json();
@@ -28,17 +28,17 @@ export default function RegisterForm() {
           return;
         }
         console.log(data.user.email);
-        router.push(`./../dailyLog/${data.user.email}`);
+        router.push(`./../daily-log/${data.user.email}`);
       }}
     >
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
       <label>
-        Firstname:
+        Name:
         <input
-          value={firstname}
-          onChange={(event) => setFirstname(event.currentTarget.value)}
+          value={name}
+          onChange={(event) => setName(event.currentTarget.value)}
         />
       </label>
       <label>

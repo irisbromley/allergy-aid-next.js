@@ -2,13 +2,14 @@ import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import {
+  createPerson,
   createUser,
   getUserByEmailWithPasswordHash,
 } from '../../../../database/users';
 
 // creating a schema for strings
 const userSchema = z.object({
-  firstname: z.string(),
+  name: z.string(),
   email: z.string(),
   password: z.string(),
 });
@@ -17,13 +18,15 @@ export type RegisterResponseBody =
   | { errors: { message: string }[] }
   | { user: { email: string } };
 
-export const POST = async (request: NextRequest) => {
+export async function POST(
+  request: NextRequest,
+): Promise<NextResponse<RegisterResponseBody>> {
   const body = await request.json();
 
   const result = userSchema.safeParse(body);
 
   if (!result.success) {
-    return NextResponse.json({ error: result.error.issues }, { status: 400 });
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
   }
 
   if (!result.data.email || !result.data.password) {
@@ -45,10 +48,14 @@ export const POST = async (request: NextRequest) => {
   const passwordHash = await bcrypt.hash(result.data.password, 12);
 
   const newUser = await createUser(
-    result.data.firstname,
+    result.data.name,
     result.data.email,
     passwordHash,
   );
+  if (newUser) {
+    const newPerson = await createPerson(result.data.name, newUser.id);
+    console.log(newPerson);
+  }
 
   if (!newUser) {
     return NextResponse.json(
@@ -57,5 +64,5 @@ export const POST = async (request: NextRequest) => {
     );
   }
 
-  return NextResponse.json({ user: { email: { email: newUser.email } } });
-};
+  return NextResponse.json({ user: { email: newUser.email } });
+}

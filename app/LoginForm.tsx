@@ -26,7 +26,7 @@ export default function LoginForm() {
           setErrors(data.errors);
           return;
         }
-        // // Validate the input data with regex but is not working
+        // Validate the input data with regex but is not working
         // if (
         //   props.returnTo &&
         //   !Array.isArray(props.returnTo) &&

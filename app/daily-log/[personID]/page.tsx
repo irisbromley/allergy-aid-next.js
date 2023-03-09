@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { getUserByEmail } from '../../../database/users';
 import DailyLogForm from './DailyLogForm';
 
-type Props = { params: { email: string; firstname: string } };
+type Props = { params: { email: string; name: string } };
 
 export const metadata = {
   title: 'Track your pollen allergy sypmtoms',
@@ -16,9 +16,6 @@ export default async function DailyLogPage({ params }: Props) {
   }
   return (
     <main>
-      <h1>Log your day</h1>
-      <h2>Hi, {user.firstname}</h2>
-      <p>How are you feeling today?</p>
       <DailyLogForm />
     </main>
   );
