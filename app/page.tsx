@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { transform } from 'typescript';
 import LoginForm from './LoginForm';
 
 export const metadata = {
