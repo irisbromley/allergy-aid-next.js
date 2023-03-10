@@ -30,6 +30,16 @@ export const getUserByEmail = cache(async (email: string) => {
   return user;
 });
 
+export const getUserByID = cache(async (userID: number) => {
+  const [user] = await sql<{ name: string; id: number; email: string }[]>`
+  SELECT id, "name", email
+  FROM users
+  WHERE
+  id = ${userID}
+`;
+  return user;
+});
+
 export const getPersonInUser = cache(async (name: string) => {
   const [person] = await sql<{ name: string; user_id: number }[]>`
   SELECT "name", user_id

@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
-import { getUserByEmail } from '../../../database/users';
+import { getUserByID } from '../../../database/users';
 import DailyLogForm from './DailyLogForm';
 
-type Props = { params: { email: string; name: string } };
+type Props = { params: { userID: number } };
 
 export const metadata = {
   title: 'Track your pollen allergy sypmtoms',
@@ -10,12 +10,14 @@ export const metadata = {
 };
 
 export default async function DailyLogPage({ params }: Props) {
-  const user = await getUserByEmail(params.email);
+  const user = await getUserByID(params.userID);
+  console.log(user);
   if (!user) {
     notFound();
   }
   return (
     <main>
+      Welcome, {user.name}
       <DailyLogForm />
     </main>
   );

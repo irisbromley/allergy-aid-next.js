@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getUserByEmail } from '../../database/users';
-import DailyLogForm from './[personID]/DailyLogForm';
+import DailyLogForm from './[userID]/DailyLogForm';
 
 type Props = { params: { email: string; name: string } };
 
@@ -18,7 +18,6 @@ export default async function DailyLogPage({ params }: Props) {
     // If there more people in persons to log for choose one if not,
     <main>
       <p></p>
-
     </main>
   );
 }

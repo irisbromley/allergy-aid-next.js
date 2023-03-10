@@ -14,15 +14,17 @@ const userSchema = z.object({
 
 export type RegisterResponseBody =
   | { errors: { message: string }[] }
-  | { user: { email: string }[] };
+  | { user: { email: string; id: number } };
 
-export const POST = async (request: NextRequest) => {
+export const POST = async (
+  request: NextRequest,
+): Promise<NextResponse<RegisterResponseBody>> => {
   const body = await request.json();
 
   const result = userSchema.safeParse(body);
 
   if (!result.success) {
-    return NextResponse.json({ error: result.error.issues }, { status: 400 });
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
   }
 
   if (!result.data.email || !result.data.password) {
@@ -73,7 +75,9 @@ export const POST = async (request: NextRequest) => {
   );
 
   return NextResponse.json(
-    { user: { email: userWithPasswordHash.email } },
+    {
+      user: { id: userWithPasswordHash.id, email: userWithPasswordHash.email },
+    },
     {
       status: 200,
       headers: { 'Set-Cookie': serializedCookie },

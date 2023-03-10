@@ -19,7 +19,7 @@ const userSchema = z.object({
 
 export type RegisterResponseBody =
   | { errors: { message: string }[] }
-  | { user: { email: string } };
+  | { user: { id: number; email: string } };
 
 export async function POST(
   request: NextRequest,
@@ -85,7 +85,7 @@ export async function POST(
   );
 
   return NextResponse.json(
-    { user: { email: newUser.email } },
+    { user: { id: newUser.id, email: newUser.email } },
     {
       status: 200,
       headers: { 'Set-Cookie': serializedCookie },
