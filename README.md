@@ -1,3 +1,30 @@
+As my final project I decided to make a pollen allergy tracker where the user can log how the are feeling on a daily basis. They would log any symptoms on their nose, eyes, mouth, throat and skin and also keep track of where they are at that moment in time.
+
+Link to my drawSQL <iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/teams/allergy-tracker-app/diagrams/initial/embed"></iframe>
+
+Link to my Figma Wireframe
+
+run sql file in psql in the terminal
+psql -U pollen_allergy_tracker -d next_js_pollen_allergy_tracker -a -f database/test-data.sql
+
+I am using an npm package called react-select to log the input on daily_log.
+
+---
+
+---
+
+---
+
+---
+
+---
+
+---
+
+---
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -36,15 +63,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-
-
-
-As my final project I decided to make a pollen allergy tracker where the user can log how the are feeling on a daily basis. They would log any symptoms on their nose, eyes, mouth, throat and skin and also keep track of where they are at that moment in time.
-
-Link to my drawSQL <iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/teams/allergy-tracker-app/diagrams/initial/embed"></iframe>
-
-Link to my Figma Wireframe
-
-run sql file in psql in the terminal
-psql -U pollen_allergy_tracker -d next_js_pollen_allergy_tracker -a -f database/test-data.sql

@@ -147,6 +147,7 @@ export default function DailyLogForm() {
               <Select
                 options={availableSymptoms}
                 isMulti
+                theme={customTheme}
                 placeholder="Select symptoms"
                 isSearchable
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -158,14 +159,30 @@ export default function DailyLogForm() {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Severity:
+              Severity {severity}:
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="transparent h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200"
                 type="range"
                 min={1}
                 max={4}
+                step={0.5}
                 value={severity}
                 onChange={(event) => setSeverity(event.currentTarget.value)}
+              />
+            </label>
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="additional notes"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Notes:
+              <textarea
+                rows={2}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                // value={notes}
+                // onChange={(event) => setNotes(event.currentTarget.value)}
               />
             </label>
           </div>
