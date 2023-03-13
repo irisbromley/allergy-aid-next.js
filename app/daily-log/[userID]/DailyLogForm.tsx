@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { any, string } from 'zod';
+import { any, date, string } from 'zod';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 
 export default function DailyLogForm() {
@@ -121,6 +121,28 @@ export default function DailyLogForm() {
       {/*  */}
       <div className="w-full max-w-md md:max-w-lg mx-auto">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <div
+              className="relative mb-3 xl:w-96"
+              data-te-datepicker-init
+              data-te-input-wrapper-init
+            >
+              <label
+                htmlFor="floatingInput"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Select a date:
+              </label>
+              <input
+                type="date"
+                data-te-datepicker-toggle-ref
+                data-te-datepicker-toggle-button-ref
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Select a date"
+              />
+            </div>
+          </div>
+
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
