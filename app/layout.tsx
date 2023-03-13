@@ -22,7 +22,7 @@ export default function RootLayout({
           <nav className="relative container mx-auto max-w-md p-6 md:max-w-lg ">
             <Link href="/settings">Settings</Link>
             <Link href="/daily-log">Log Your Day</Link>
-            <Link href="/logout">Logout</Link>
+            <Link href="/logout" prefetch={false}>Logout</Link>
           </nav>
         </header>
         <div className="mx-auto max-w-md md:max-w-lg">{children}</div>

@@ -20,6 +20,20 @@ export const deleteExpiredSession = cache(async () => {
   DELETE FROM
   sessions
   WHERE
-  expiry_timestamp < now{}
+  expiry_timestamp < now()
   `;
+});
+
+export const deleteSessionByToken = cache(async (token: string) => {
+  const [session] = await sql<{ id: number; token: string }[]>`
+  DELETE FROM
+    sessions
+  WHERE
+    sessions.token = ${token}
+  RETURNING
+    id,
+    token
+`;
+
+  return session;
 });
