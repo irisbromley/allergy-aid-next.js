@@ -3,8 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
-import { any, date, string } from 'zod';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 
 export default function DailyLogForm() {

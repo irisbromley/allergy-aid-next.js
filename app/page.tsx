@@ -6,11 +6,9 @@ export const metadata = {
   description: 'Daily Pollen Allergy Symptoms Tracker',
 };
 
-type Props = { searchParams: { returnTo?: string | string[] } };
-
 export const dynamic = 'force-dynamic';
 
-export default function Home(props: Props) {
+export default function Home() {
   return (
     <main>
       <div className="flex flex-row-reverse">
