@@ -2,14 +2,97 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+import { any, string } from 'zod';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
 
 export default function DailyLogForm() {
   const [bodyPart, setBodyPart] = useState('');
-  const [symptom, setSymptom] = useState('');
+  const [symptoms, setSymptoms] = useState([] as string[]);
   const [severity, setSeverity] = useState('');
+  const [availableSymptoms, setAvailableSymptoms] = useState(
+    [] as Array<{ value: string; label: string }>,
+  );
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
+
+  const bodyParts = [
+    {
+      value: 'eyes',
+      label: ' 👁 Eyes',
+      symptoms: [
+        { value: 'runny', label: 'runny' },
+        { value: 'dry', label: 'dry' },
+        { value: 'itchy', label: 'itchy' },
+        { value: 'swollen', label: 'swollen' },
+        { value: 'foreign body sensation', label: 'foreign body sensation' },
+      ],
+    },
+    {
+      value: 'nose',
+      label: '👃 Nose',
+      symptoms: [
+        { value: 'runny', label: 'runny' },
+        { value: 'blocked', label: 'blocked' },
+        { value: 'itchy', label: 'itchy' },
+        { value: 'sneezing', label: 'sneezing' },
+      ],
+    },
+    {
+      value: 'mouth',
+      label: '👄 Mouth',
+      symptoms: [
+        { value: 'itchy', label: 'itchy' },
+        { value: 'swollen', label: 'swollen' },
+      ],
+    },
+    {
+      value: 'lungs',
+      label: '🫁 Lungs',
+      symptoms: [
+        { value: 'cough', label: 'cough' },
+        { value: 'short of breath', label: 'short of breath' },
+        { value: 'Asthma', label: 'asthma' },
+        { value: 'whisteling', label: 'whisteling' },
+      ],
+    },
+    {
+      value: 'skin',
+      label: ' 🦵 Skin',
+      symptoms: [
+        { value: 'itchy', label: 'itchy' },
+        { value: 'dry', label: 'dry' },
+        { value: 'rash', label: 'rash' },
+      ],
+    },
+  ];
+
+  const onBodyPartChange = (selected: typeof bodyParts[number] | null) => {
+    if (selected) {
+      setAvailableSymptoms(selected.symptoms);
+      setBodyPart(selected.value);
+    }
+  };
+
+  const onSymptomChange = (
+    selected: ReadonlyArray<{ value: string; label: string }>,
+  ) => {
+    const chosenSymptoms = selected.map((item) => {
+      return item.value;
+    });
+    setSymptoms(chosenSymptoms);
+  };
+
+  function customTheme(theme: any) {
+    return {
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary50: 'lightblue',
+      },
+    };
+  }
 
   return (
     <form
@@ -18,7 +101,7 @@ export default function DailyLogForm() {
 
         const response = await fetch('/api/register', {
           method: 'POST',
-          body: JSON.stringify({ bodyPart, symptom, severity }),
+          body: JSON.stringify({ bodyPart, symptoms, severity }),
         });
 
         const data: RegisterResponseBody = await response.json();
@@ -41,14 +124,16 @@ export default function DailyLogForm() {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
+              htmlFor="select"
             >
               Body part:
-              <input
+              <Select
+                options={bodyParts}
+                placeholder="Select Body Part"
+                isSearchable
+                theme={customTheme}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="select"
-                value={bodyPart}
-                onChange={(event) => setBodyPart(event.currentTarget.value)}
+                onChange={onBodyPartChange}
               />
             </label>
           </div>
@@ -56,14 +141,17 @@ export default function DailyLogForm() {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
+              htmlFor="select"
             >
               Symptom:
-              <input
+              <Select
+                options={availableSymptoms}
+                isMulti
+                placeholder="Select symptoms"
+                isSearchable
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                title="Password should be digits (0 to 9) or alphabets (a to z)."
-                value={symptom}
-                onChange={(event) => setSymptom(event.currentTarget.value)}
+                onChange={onSymptomChange}
+                // onChange={(event) => setSymptom(event.currentTarget.value)}
               />
             </label>
           </div>
