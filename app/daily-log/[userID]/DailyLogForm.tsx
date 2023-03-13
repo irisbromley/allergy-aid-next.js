@@ -84,7 +84,7 @@ export default function DailyLogForm() {
 
           <div className="flex items-center justify-between">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Submit
+              Create Entry
             </button>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               {' '}
@@ -95,12 +95,6 @@ export default function DailyLogForm() {
       </div>
 
       {/*  */}
-
-      <form action="submit">
-        <label htmlFor="">
-          <input />
-        </label>
-      </form>
     </form>
   );
 }

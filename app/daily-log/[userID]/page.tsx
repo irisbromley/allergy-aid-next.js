@@ -17,7 +17,7 @@ export default async function DailyLogPage({ params }: Props) {
   }
   return (
     <main>
-      Welcome, {user.name}
+      <h1> Hi, {user.name}</h1>
       <DailyLogForm />
     </main>
   );

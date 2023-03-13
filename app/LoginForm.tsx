@@ -11,6 +11,8 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const router = useRouter();
 
+ 
+
   return (
     <form
       onSubmit={async (event) => {
@@ -39,10 +41,12 @@ export default function LoginForm() {
         router.push(`/../daily-log/${data.user.id}`);
       }}
     >
+
+
       {errors.map((error) => (
         <div key={`error-${error.message}`}>Error: {error.message}</div>
       ))}
-      
+
       <div className="w-full max-w-md md:max-w-lg mx-auto">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
