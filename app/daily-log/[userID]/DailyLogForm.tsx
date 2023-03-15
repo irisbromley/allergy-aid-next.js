@@ -123,7 +123,7 @@ export default function DailyLogForm(props: { userID: number }) {
           return;
         }
 
-        router.push('/daily-log');
+        router.push(`/daily-log/${props.userID}`);
       }}
     >
       {errors.map((error) => (
@@ -200,7 +200,6 @@ export default function DailyLogForm(props: { userID: number }) {
                 type="range"
                 min={1}
                 max={4}
-                step={0.5}
                 value={severity}
                 onChange={(event) => setSeverity(+event.currentTarget.value)}
               />
