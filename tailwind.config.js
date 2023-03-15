@@ -9,7 +9,11 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: (theme) => ({
+        'comic-clouds': "url('/cartoon-clouds.webp')",
+      }),
+    },
   },
   plugins: [],
 };

@@ -1,8 +1,8 @@
 import './global.css';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 import { getUserBySessionToken } from '../database/users';
+import NavBar from './NavBar';
 
 export const metadata: Metadata = {
   title: 'Track your pollen allergy sypmtoms',
@@ -18,21 +18,15 @@ export default async function RootLayout({
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
   const user = token && (await getUserBySessionToken(token.value));
+  console.log('user', user);
+
   return (
     <html lang="en">
       <head />
 
-      <body>
+      <body className="bg-comic-clouds bg-cover bg-no-repeat bg-[#d0ebf7]">
         <header>
-          <nav className="relative container mx-auto max-w-md p-6 md:max-w-lg ">
-            {user && <Link href="/settings">Settings</Link>}
-            {user && <Link href="/daily-log">Log Your Day</Link>}
-            {user && (
-              <Link href="/logout" prefetch={false}>
-                Logout
-              </Link>
-            )}
-          </nav>
+          <NavBar user={user} />
         </header>
         <div className="mx-auto max-w-md md:max-w-lg">{children}</div>
       </body>

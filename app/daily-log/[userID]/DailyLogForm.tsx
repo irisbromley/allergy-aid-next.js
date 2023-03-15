@@ -117,7 +117,8 @@ export default function DailyLogForm() {
       ))}
 
       {/*  */}
-      <div className="w-full max-w-md md:max-w-lg mx-auto">
+      {/* <div className="w-full max-w-md md:max-w-lg mx-auto"> */}
+      <div className="flex flex-col justify-center items-center h-[100vh]">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <div
