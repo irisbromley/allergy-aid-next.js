@@ -37,6 +37,7 @@ export default function LoginForm() {
         //   return;
         // }
         router.push(`/../daily-log/${data.user.id}`);
+        router.refresh();
       }}
     >
       {errors.map((error) => (

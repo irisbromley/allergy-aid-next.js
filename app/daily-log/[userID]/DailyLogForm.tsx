@@ -4,11 +4,16 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Select from 'react-select';
 import { RegisterResponseBody } from '../../api/(auth)/register/route';
+import { DailyLogInput } from '../../api/daily-log/route';
 
-export default function DailyLogForm() {
+export default function DailyLogForm(props: { userID: number }) {
   const [bodyPart, setBodyPart] = useState('');
-  const [symptoms, setSymptoms] = useState([] as string[]);
-  const [severity, setSeverity] = useState('');
+  const [date, setDate] = useState(new Date().toISOString());
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  const [notes, setNotes] = useState('');
+  const [attributes, setAttributes] = useState([] as string[]);
+  const [severity, setSeverity] = useState(0);
   const [availableSymptoms, setAvailableSymptoms] = useState(
     [] as Array<{ value: string; label: string }>,
   );
@@ -73,13 +78,13 @@ export default function DailyLogForm() {
     }
   };
 
-  const onSymptomChange = (
+  const onAttributeChange = (
     selected: ReadonlyArray<{ value: string; label: string }>,
   ) => {
     const chosenSymptoms = selected.map((item) => {
       return item.value;
     });
-    setSymptoms(chosenSymptoms);
+    setAttributes(chosenSymptoms);
   };
 
   function customTheme(theme: any) {
@@ -97,9 +102,18 @@ export default function DailyLogForm() {
       onSubmit={async (event) => {
         event.preventDefault();
 
-        const response = await fetch('/api/register', {
+        const input: DailyLogInput = {
+          date: new Date(date),
+          latitude,
+          longitude,
+          notes,
+          symptoms: [{ bodyPart, attributes, severity }],
+          userID: props.userID,
+        };
+
+        const response = await fetch('/api/daily-log', {
           method: 'POST',
-          body: JSON.stringify({ bodyPart, symptoms, severity }),
+          body: JSON.stringify(input),
         });
 
         const data: RegisterResponseBody = await response.json();
@@ -109,7 +123,7 @@ export default function DailyLogForm() {
           return;
         }
 
-        router.push('/');
+        router.push('/daily-log');
       }}
     >
       {errors.map((error) => (
@@ -138,6 +152,7 @@ export default function DailyLogForm() {
                 data-te-datepicker-toggle-button-ref
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Select a date"
+                onChange={(event) => setDate(event.currentTarget.value)}
               />
             </div>
           </div>
@@ -172,8 +187,7 @@ export default function DailyLogForm() {
                 placeholder="Select symptoms"
                 isSearchable
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                onChange={onSymptomChange}
-                // onChange={(event) => setSymptom(event.currentTarget.value)}
+                onChange={onAttributeChange}
               />
             </label>
           </div>
@@ -188,7 +202,7 @@ export default function DailyLogForm() {
                 max={4}
                 step={0.5}
                 value={severity}
-                onChange={(event) => setSeverity(event.currentTarget.value)}
+                onChange={(event) => setSeverity(+event.currentTarget.value)}
               />
             </label>
           </div>
@@ -202,8 +216,8 @@ export default function DailyLogForm() {
               <textarea
                 rows={2}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                // value={notes}
-                // onChange={(event) => setNotes(event.currentTarget.value)}
+                value={notes}
+                onChange={(event) => setNotes(event.currentTarget.value)}
               />
             </label>
           </div>

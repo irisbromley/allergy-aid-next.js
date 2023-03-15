@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { getUserByID } from '../../../database/users';
 import DailyLogForm from './DailyLogForm';
 
-type Props = { params: { userID: number } };
+type Props = { params: { userID: string } };
 
 export const metadata = {
   title: 'Track your pollen allergy sypmtoms',
@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function DailyLogPage({ params }: Props) {
-  const user = await getUserByID(params.userID);
+  const user = await getUserByID(+params.userID);
   console.log(user);
   if (!user) {
     notFound();
@@ -18,7 +18,7 @@ export default async function DailyLogPage({ params }: Props) {
   return (
     <main>
       <h1> Hi, {user.name}</h1>
-      <DailyLogForm />
+      <DailyLogForm userID={+params.userID} />
     </main>
   );
 }
