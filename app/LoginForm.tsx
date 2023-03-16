@@ -56,6 +56,7 @@ export default function LoginForm() {
                 placeholder="What is your Email?"
                 type="email"
                 value={email}
+                required
                 onChange={(event) => setEmail(event.currentTarget.value)}
               />
             </label>
@@ -73,6 +74,7 @@ export default function LoginForm() {
                 minLength={4}
                 title="Password should be digits (0 to 9) or alphabets (a to z)."
                 value={password}
+                required
                 onChange={(event) => setPassword(event.currentTarget.value)}
               />
             </label>

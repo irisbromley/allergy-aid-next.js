@@ -147,6 +147,7 @@ export default function DailyLogForm(props: { userID: number }) {
                 Select a date:
               </label>
               <input
+                required
                 type="date"
                 data-te-datepicker-toggle-ref
                 data-te-datepicker-toggle-button-ref
@@ -167,6 +168,7 @@ export default function DailyLogForm(props: { userID: number }) {
                 options={bodyParts}
                 placeholder="Select Body Part"
                 isSearchable
+                required
                 onChange={onBodyPartChange}
               />
             </label>
@@ -183,6 +185,7 @@ export default function DailyLogForm(props: { userID: number }) {
                 isMulti
                 placeholder="Select symptoms"
                 isSearchable
+                required
                 onChange={onAttributeChange}
               />
             </label>
@@ -192,6 +195,7 @@ export default function DailyLogForm(props: { userID: number }) {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Severity {severity}:
               <input
+                required
                 className="transparent h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200"
                 type="range"
                 min={1}

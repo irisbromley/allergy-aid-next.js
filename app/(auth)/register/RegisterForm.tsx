@@ -44,6 +44,7 @@ export default function RegisterForm() {
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={name}
+                required
                 onChange={(event) => setName(event.currentTarget.value)}
               />
             </label>
@@ -59,6 +60,7 @@ export default function RegisterForm() {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="email"
                 value={email}
+                required
                 onChange={(event) => setEmail(event.currentTarget.value)}
               />
             </label>
@@ -76,6 +78,7 @@ export default function RegisterForm() {
                 minLength={4}
                 title="Password should be digits (0 to 9) or alphabets (a to z)."
                 value={password}
+                required
                 onChange={(event) => setPassword(event.currentTarget.value)}
               />
             </label>
