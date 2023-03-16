@@ -3,10 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Select from 'react-select';
-import { RegisterResponseBody } from '../../api/(auth)/register/route';
-import { DailyLogInput } from '../../api/daily-log/route';
+import { LoginResponseBody } from '../../../api/(auth)/login/route';
+import {
+  CreateDailyLogResponseBody,
+  DailyLogInput,
+} from '../../../api/daily-log/route';
 
-export default function DailyLogForm(props: { userID: number }) {
+export default function DailyLogForm(props: { personID: number }) {
   const [bodyPart, setBodyPart] = useState('');
   const [date, setDate] = useState(new Date().toISOString());
   const [latitude, setLatitude] = useState(0);
@@ -108,7 +111,7 @@ export default function DailyLogForm(props: { userID: number }) {
           longitude,
           notes,
           symptoms: [{ bodyPart, attributes, severity }],
-          userID: props.userID,
+          personID: props.personID,
         };
 
         const response = await fetch('/api/daily-log', {
@@ -116,18 +119,24 @@ export default function DailyLogForm(props: { userID: number }) {
           body: JSON.stringify(input),
         });
 
-        const data: RegisterResponseBody = await response.json();
+        const data: CreateDailyLogResponseBody = await response.json();
 
         if ('errors' in data) {
           setErrors(data.errors);
           return;
         }
 
-        router.push(`/daily-log/${props.userID}`);
+        router.push(`/daily-log/${props.personID}`);
       }}
     >
       {errors.map((error) => (
-        <div key={`error-${error.message}`}>Error: {error.message}</div>
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+          key={`error-${error.message}`}
+        >
+          Error: {error.message}
+        </div>
       ))}
 
       {/*  */}

@@ -56,13 +56,23 @@ export const getUserByID = cache(async (userID: number) => {
   return user;
 });
 
-export const getPersonInUser = cache(async (name: string) => {
-  const [person] = await sql<{ name: string; user_id: number }[]>`
-  SELECT "name", user_id
+export const getPersonByID = cache(async (personID: number) => {
+  const [person] = await sql<{ name: string; id: number }[]>`
+  SELECT id, "name"
   FROM persons
   WHERE
-  "name" = ${name}`;
+  id = ${personID}
+`;
   return person;
+});
+
+export const getPersonsByUserID = cache(async (userID: number) => {
+  const persons = await sql<{ name: string; id: number }[]>`
+  SELECT "name", id
+  FROM persons
+  WHERE
+  user_id = ${userID}`;
+  return persons;
 });
 
 export const createUser = cache(

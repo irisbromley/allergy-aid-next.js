@@ -28,7 +28,7 @@ CREATE TABLE sessions (
 CREATE TABLE daily_logs (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   "date" date NOT NULL,
-  user_id integer NOT NULL,
+  person_id integer NOT NULL,
   notes text NOT NULL,
   longitude double precision NOT NULL,
   latitude double precision NOT NULL

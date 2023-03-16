@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { RegisterResponseBody } from './api/(auth)/login/route';
+import { LoginResponseBody } from './api/(auth)/login/route';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ export default function LoginForm() {
           body: JSON.stringify({ email, password }),
         });
 
-        const data: RegisterResponseBody = await response.json();
+        const data: LoginResponseBody = await response.json();
 
         if ('errors' in data) {
           setErrors(data.errors);
@@ -36,16 +36,24 @@ export default function LoginForm() {
         //   router.push(props.returnTo);
         //   return;
         // }
-        router.push(`/../daily-log/${data.user.id}`);
+
+        // if there is only 1 person which is the user
+        router.push(`/../daily-log/${data.user.persons[0]?.id}/new`);
         router.refresh();
       }}
     >
       {errors.map((error) => (
-        <div key={`error-${error.message}`}>Error: {error.message}</div>
+        <div
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          role="alert"
+          key={`error-${error.message}`}
+        >
+          Error: {error.message}
+        </div>
       ))}
 
       <div className="w-full max-w-md md:max-w-lg mx-auto">
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4">
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"

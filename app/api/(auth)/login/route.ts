@@ -3,7 +3,10 @@ import bcrypt from 'bcrypt';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createSession } from '../../../../database/sessions';
-import { getUserByEmailWithPasswordHash } from '../../../../database/users';
+import {
+  getPersonsByUserID,
+  getUserByEmailWithPasswordHash,
+} from '../../../../database/users';
 import { createSerializedRegisterSessionTokenCookie } from '../../../../utils/cookies';
 
 // creating a schema for strings
@@ -12,13 +15,19 @@ const userSchema = z.object({
   password: z.string(),
 });
 
-export type RegisterResponseBody =
+export type LoginResponseBody =
   | { errors: { message: string }[] }
-  | { user: { email: string; id: number } };
+  | {
+      user: {
+        email: string;
+        id: number;
+        persons: Array<{ id: number; name: string }>;
+      };
+    };
 
 export const POST = async (
   request: NextRequest,
-): Promise<NextResponse<RegisterResponseBody>> => {
+): Promise<NextResponse<LoginResponseBody>> => {
   const body = await request.json();
 
   const result = userSchema.safeParse(body);
@@ -73,10 +82,13 @@ export const POST = async (
   const serializedCookie = createSerializedRegisterSessionTokenCookie(
     session.token,
   );
+console.log(userWithPasswordHash.id)
+
+  const persons = await getPersonsByUserID(userWithPasswordHash.id)
 
   return NextResponse.json(
     {
-      user: { id: userWithPasswordHash.id, email: userWithPasswordHash.email },
+      user: { id: userWithPasswordHash.id, email: userWithPasswordHash.email, persons  },
     },
     {
       status: 200,

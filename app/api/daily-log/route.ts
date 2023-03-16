@@ -5,7 +5,7 @@ import { createDailyLog, createSymptom } from '../../../database/daily-logs';
 // creating a schema for strings
 const dailyLogSchema = z.object({
   date: z.coerce.date(),
-  userID: z.number(),
+  personID: z.number(),
   notes: z.string(),
   longitude: z.number(),
   latitude: z.number(),
@@ -20,13 +20,13 @@ const dailyLogSchema = z.object({
 
 export type DailyLogInput = z.infer<typeof dailyLogSchema>;
 
-export type RegisterResponseBody =
+export type CreateDailyLogResponseBody =
   | { errors: { message: string }[] }
   | { success: boolean };
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<RegisterResponseBody>> {
+): Promise<NextResponse<CreateDailyLogResponseBody>> {
   const body = await request.json();
 
   const result = dailyLogSchema.safeParse(body);
