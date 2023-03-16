@@ -167,8 +167,6 @@ export default function DailyLogForm(props: { userID: number }) {
                 options={bodyParts}
                 placeholder="Select Body Part"
                 isSearchable
-                theme={customTheme}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 onChange={onBodyPartChange}
               />
             </label>
@@ -183,10 +181,8 @@ export default function DailyLogForm(props: { userID: number }) {
               <Select
                 options={availableSymptoms}
                 isMulti
-                theme={customTheme}
                 placeholder="Select symptoms"
                 isSearchable
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 onChange={onAttributeChange}
               />
             </label>
