@@ -6,5 +6,14 @@ export const metadata = {
 };
 
 export default function RegisterPage() {
-  return <RegisterForm />;
+  return (
+    <main>
+      <div className="flex flex-row-reverse">
+        <h2 className="text-white text-2xl md:-4xl lg:text-6xl font-bold mb-4">
+          Register
+        </h2>
+      </div>
+      <RegisterForm />
+    </main>
+  );
 }

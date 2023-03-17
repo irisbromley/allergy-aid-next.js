@@ -140,8 +140,7 @@ export default function DailyLogForm(props: { personID: number }) {
       ))}
 
       {/*  */}
-      {/* <div className="w-full max-w-md md:max-w-lg mx-auto"> */}
-      <div className="flex flex-col justify-center items-center h-[100vh]">
+      <div className="w-full max-w-md md:max-w-lg mx-auto">
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <div
@@ -172,7 +171,6 @@ export default function DailyLogForm(props: { personID: number }) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="select"
             >
-              Body part:
               <Select
                 options={bodyParts}
                 placeholder="Select Body Part"
@@ -188,7 +186,6 @@ export default function DailyLogForm(props: { personID: number }) {
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="select"
             >
-              Symptom:
               <Select
                 options={availableSymptoms}
                 isMulti
@@ -201,10 +198,14 @@ export default function DailyLogForm(props: { personID: number }) {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <p className="block text-gray-700 text-sm font-bold mb-2">
               Severity {severity}:
+            </p>
+
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               <input
                 required
+                placeholder="Severity"
                 className="transparent h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200"
                 type="range"
                 min={1}
@@ -220,11 +221,11 @@ export default function DailyLogForm(props: { personID: number }) {
               htmlFor="additional notes"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Notes:
               <textarea
                 rows={2}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={notes}
+                placeholder="Comments ..."
                 onChange={(event) => setNotes(event.currentTarget.value)}
               />
             </label>
