@@ -5,9 +5,9 @@ import { sql } from './connect';
 export const createDailyLog = cache(async (input: DailyLogInput) => {
   const [dailyLog] = await sql<{ id: number }[]>`
     INSERT INTO daily_logs
-    ("date", user_id, notes, longitude, latitude)
+    ("date", person_id, notes, longitude, latitude)
     VALUES
-    (${input.date}, ${input.userID}, ${input.notes},${input.longitude},${input.latitude})
+    (${input.date}, ${input.personID}, ${input.notes},${input.longitude},${input.latitude})
     RETURNING
     id`;
   return dailyLog;
@@ -25,6 +25,24 @@ export const createSymptom = cache(
     return symptom;
   },
 );
+//
+export const getDailyLogsByPerson = cache(async (personID: number) => {
+  const dailyLogsList = await sql<{ id: number }[]>`
+  SELECT
+  *
+  FROM
+  daily_logs
+  WHERE
+  person_id = ${personID}
+  ORDER BY
+  "date"
+  DESC
+  `;
+  return dailyLogsList;
+});
+
+// export function getSymptomsByPerson
+
 // export const createDailyLog = cache(async (token: string, userId: number) => {
 //   const [session] = await sql<{ id: number; token: string; user_id: number }[]>`
 //     INSERT INTO sessions
@@ -47,17 +65,6 @@ export const createSymptom = cache(
 //   expiry_timestamp < now()
 //   `;
 // });
-
-// export const deleteSessionByToken = cache(async (token: string) => {
-//   const [session] = await sql<{ id: number; token: string }[]>`
-//   DELETE FROM
-//     sessions
-//   WHERE
-//     sessions.token = ${token}
-//   RETURNING
-//     id,
-//     token
-// `;
 
 //   return session;
 // });

@@ -11,11 +11,6 @@ export default function NavBar({
 }: {
   user: { id: number; email: string } | undefined;
 }) {
-  // const cookieStore = cookies();
-  // const token = cookieStore.get('sessionToken');
-  // const user = token && getUserBySessionToken(token.value);
-  // console.log('user', user);
-
   const [nav, setNav] = useState(false);
   const handleNav = () => {
     setNav(!nav);
@@ -54,7 +49,9 @@ export default function NavBar({
 
         {/* Mobile menu */}
         <div
-          className={`sm:hidden z-10 absolute top-0  right-0 bottom-0 flex justify-center items-center w-full h-screen text-center bg-blue-300 ease-in duration-300 ${nav ? 'left-0' : 'left-[-100%]'}`}
+          className={`sm:hidden z-10 absolute top-0  right-0 bottom-0 flex justify-center items-center w-full h-screen text-center bg-blue-300 ease-in duration-300 ${
+            nav ? 'left-0' : 'left-[-100%]'
+          }`}
         >
           <ul>
             <li className="p-6 text-4xl hover:text-blue-700">

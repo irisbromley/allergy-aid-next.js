@@ -17,7 +17,7 @@ export default async function DailyLogPage({ params }: Props) {
   return (
     // If there more people in persons to log for choose one if not,
     <main>
-      <p></p>
+     
     </main>
   );
 }

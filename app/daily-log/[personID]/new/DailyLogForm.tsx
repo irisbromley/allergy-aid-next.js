@@ -90,16 +90,6 @@ export default function DailyLogForm(props: { personID: number }) {
     setAttributes(chosenSymptoms);
   };
 
-  function customTheme(theme: any) {
-    return {
-      ...theme,
-      colors: {
-        ...theme.colors,
-        primary50: 'lightblue',
-      },
-    };
-  }
-
   return (
     <form
       onSubmit={async (event) => {

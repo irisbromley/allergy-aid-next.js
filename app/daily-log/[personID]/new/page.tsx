@@ -5,8 +5,8 @@ import DailyLogForm from './DailyLogForm';
 type Props = { params: { personID: string } };
 
 export const metadata = {
-  title: 'Track your pollen allergy sypmtoms',
-  description: 'Daily Pollen Allergy Symptoms Tracker',
+  title: 'Allergy Diary',
+  description: 'Daily Allergy Symptoms Diary',
 };
 
 export default async function DailyLogPage({ params }: Props) {
