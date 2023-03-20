@@ -16,7 +16,7 @@ export default async function DailyLogsListPage({ params }: Props) {
     <main>
       <div className="flex flex-row-reverse">
         <h2 className="text-white text-2xl md:-4xl lg:text-6xl font-bold mb-4">
-          All of personname's diary entries
+          All of person name's diary entries
 
         </h2>
       </div>

@@ -27,7 +27,7 @@ export const createSymptom = cache(
 );
 //
 export const getDailyLogsByPerson = cache(async (personID: number) => {
-  const dailyLogsList = await sql<{ id: number }[]>`
+  const dailyLogsList = await sql<any[]>`
   SELECT
   *
   FROM
@@ -38,6 +38,19 @@ export const getDailyLogsByPerson = cache(async (personID: number) => {
   "date"
   DESC
   `;
+
+  for (const log of dailyLogsList) {
+    const symptoms = await sql<any[]>`
+  SELECT
+  *
+  FROM
+  symptoms
+  WHERE
+  daily_log_id = ${log.id}
+  `;
+    log.symptoms = symptoms;
+  }
+
   return dailyLogsList;
 });
 
