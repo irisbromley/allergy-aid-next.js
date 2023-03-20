@@ -11,7 +11,7 @@ type User = {
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<{ id: number; email: string }[]>`
   SELECT
-  users.id
+  users.id,
   email
   FROM
   users

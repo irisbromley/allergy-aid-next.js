@@ -1,7 +1,7 @@
 import './global.css';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
-import { getUserBySessionToken } from '../database/users';
+import { getPersonsByUserID, getUserBySessionToken } from '../database/users';
 import NavBar from './NavBar';
 
 export const metadata: Metadata = {
@@ -18,6 +18,7 @@ export default async function RootLayout({
   const cookieStore = cookies();
   const token = cookieStore.get('sessionToken');
   const user = token && (await getUserBySessionToken(token.value));
+  const persons = user ? await getPersonsByUserID(user.id) : [];
   console.log('user', user);
 
   return (
@@ -26,7 +27,7 @@ export default async function RootLayout({
 
       <body className="bg-comic-clouds bg-cover bg-no-repeat bg-[#d0ebf7]">
         <header>
-          <NavBar user={user} />
+          <NavBar user={user} persons={persons}/>
         </header>
         <div className="mx-auto max-w-md md:max-w-lg">{children}</div>
       </body>

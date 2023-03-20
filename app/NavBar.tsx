@@ -8,9 +8,12 @@ import { getUserBySessionToken } from '../database/users';
 
 export default function NavBar({
   user,
+  persons,
 }: {
   user: { id: number; email: string } | undefined;
+  persons: { id: number }[];
 }) {
+  console.log(user);
   const [nav, setNav] = useState(false);
   const handleNav = () => {
     setNav(!nav);
@@ -29,7 +32,9 @@ export default function NavBar({
             {user && <Link href="/settings">Settings</Link>}
           </li>
           <li className="p-6">
-            {user && <Link href="/daily-log">Log my day</Link>}
+            {user && (
+              <Link href={`/daily-log/${persons[0]?.id}/new`}>Log my day</Link>
+            )}
           </li>
           <li className="p-6">
             {user && (
@@ -55,14 +60,25 @@ export default function NavBar({
         >
           <ul>
             <li className="p-6 text-4xl hover:text-blue-700">
-              {user && <Link href="/settings">Settings</Link>}
-            </li>
-            <li className="p-6 text-4xl hover:text-blue-700">
-              {user && <Link href="/daily-log">Log my Day</Link>}
+              {user && (
+                <Link href="/settings" onClick={handleNav}>
+                  Settings
+                </Link>
+              )}
             </li>
             <li className="p-6 text-4xl hover:text-blue-700">
               {user && (
-                <Link href="/logout" prefetch={false}>
+                <Link
+                  href={`/daily-log/${persons[0]?.id}/new`}
+                  onClick={handleNav}
+                >
+                  Log my day
+                </Link>
+              )}
+            </li>
+            <li className="p-6 text-4xl hover:text-blue-700">
+              {user && (
+                <Link href="/logout" prefetch={false} onClick={handleNav}>
                   Logout
                 </Link>
               )}
