@@ -9,18 +9,23 @@ import {
   DailyLogInput,
 } from '../../../api/daily-log/route';
 
-export default function DailyLogForm(props: { personID: number }) {
-  const [bodyPart, setBodyPart] = useState('');
+export default function DailyLogForm(props: { personID: number; dailyLogId?: number; date?: string; severity?: number; notes?: string;}) {
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
-  const [notes, setNotes] = useState('');
-  const [attributes, setAttributes] = useState([] as string[]);
-  const [severity, setSeverity] = useState(0);
-  const [availableSymptoms, setAvailableSymptoms] = useState(
-    [] as Array<{ value: string; label: string }>,
-  );
+  const [notes, setNotes] = useState(props.notes ?? '');
+  const [severity, setSeverity] = useState(props.severity ?? 0);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
+
+  // Store a data structure like this:
+  // {
+  //   eyes: ['itchy', 'dry'],
+  //   skin: ['slimy'],
+  // }
+  const [symptoms, setSymptoms] = useState<{ [bodyPart: string]: string[] }>(
+    {},
+  );
+
   const router = useRouter();
 
   const bodyParts = [
@@ -28,7 +33,7 @@ export default function DailyLogForm(props: { personID: number }) {
       value: 'eyes',
       label: ' 👁 Eyes',
       symptoms: [
-        { value: 'runny', label: 'runny' },
+        { value: 'watery', label: 'watery' },
         { value: 'dry', label: 'dry' },
         { value: 'itchy', label: 'itchy' },
         { value: 'swollen', label: 'swollen' },
@@ -74,26 +79,34 @@ export default function DailyLogForm(props: { personID: number }) {
     },
   ];
 
-  const onBodyPartChange = (selected: typeof bodyParts[number] | null) => {
-    if (selected) {
-      setAvailableSymptoms(selected.symptoms);
-      setBodyPart(selected.value);
+  function toggleAttribute(bodyPart: string, attribute: string) {
+    const attributesForPart = symptoms[bodyPart];
+    let updatedAttributes;
+    if (attributesForPart == null) {
+      updatedAttributes = [attribute];
+    } else if (attributesForPart.includes(attribute)) {
+      updatedAttributes = attributesForPart.filter(
+        (attr) => attr !== attribute,
+      );
+    } else {
+      updatedAttributes = [...attributesForPart, attribute];
     }
-  };
-
-  const onAttributeChange = (
-    selected: ReadonlyArray<{ value: string; label: string }>,
-  ) => {
-    const chosenSymptoms = selected.map((item) => {
-      return item.value;
-    });
-    setAttributes(chosenSymptoms);
-  };
+    const updatedSymptoms = {
+      ...symptoms,
+      [bodyPart]: updatedAttributes,
+    };
+    setSymptoms(updatedSymptoms);
+  }
 
   return (
     <form
       onSubmit={async (event) => {
         event.preventDefault();
+
+        debugger;
+        let symptomsArray = Object.entries(symptoms).map(
+          ([bodyPart, attributes]) => ({ bodyPart, attributes }),
+        );
 
         const input: DailyLogInput = {
           date: new Date(date),
@@ -101,12 +114,12 @@ export default function DailyLogForm(props: { personID: number }) {
           longitude,
           notes,
           severity,
-          symptoms: [{ bodyPart, attributes }],
+          symptoms: symptomsArray,
           personID: props.personID,
         };
 
         const response = await fetch('/api/daily-log', {
-          method: 'POST',
+          method: props.dailyLogId ? 'PUT' : 'POST',
           body: JSON.stringify(input),
         });
 
@@ -202,6 +215,9 @@ export default function DailyLogForm(props: { personID: number }) {
                       name={symptom.value}
                       value={symptom.value}
                       id={symptom.value}
+                      onChange={(event) =>
+                        toggleAttribute(part.value, symptom.value)
+                      }
                     />
                     <label htmlFor={symptom.value}>{symptom.label}</label>
                   </div>
