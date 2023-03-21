@@ -27,7 +27,7 @@ CREATE TABLE sessions (
   await sql`
 CREATE TABLE daily_logs (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  "date" date NOT NULL,
+  "date" timestamp NOT NULL,
   person_id integer NOT NULL,
   notes text NOT NULL,
   longitude double precision NOT NULL,
