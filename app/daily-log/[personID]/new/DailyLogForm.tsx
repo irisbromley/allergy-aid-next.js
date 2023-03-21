@@ -155,38 +155,6 @@ export default function DailyLogForm(props: { personID: number }) {
               />
             </div>
           </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="select"
-            >
-              <Select
-                options={bodyParts}
-                placeholder="Select Body Part"
-                isSearchable
-                required
-                onChange={onBodyPartChange}
-              />
-            </label>
-          </div>
-
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="select"
-            >
-              <Select
-                options={availableSymptoms}
-                isMulti
-                placeholder="Select symptoms"
-                isSearchable
-                required
-                onChange={onAttributeChange}
-              />
-            </label>
-          </div>
-
           <div className="mb-4">
             <p className="block text-gray-700 text-sm font-bold mb-2">
               Severity {severity}:
@@ -221,13 +189,28 @@ export default function DailyLogForm(props: { personID: number }) {
             </label>
           </div>
 
+          <div className="mb-4">
+            {bodyParts.map((part) => (
+              <div key={`part-${part.value}`}>
+                {part.label}:
+                {part.symptoms.map((symptom) => (
+                  <div key={`symptom-${symptom.value}`}>
+                    <input
+                      type="checkbox"
+                      name={symptom.value}
+                      value={symptom.value}
+                      id={symptom.value}
+                    />
+                    <label htmlFor={symptom.value}>{symptom.label}</label>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
           <div className="flex items-center justify-between">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Create Entry
-            </button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              {' '}
-              +
             </button>
           </div>
         </div>
