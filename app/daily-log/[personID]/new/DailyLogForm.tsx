@@ -11,7 +11,7 @@ import {
 
 export default function DailyLogForm(props: { personID: number }) {
   const [bodyPart, setBodyPart] = useState('');
-  const [date, setDate] = useState(new Date().toISOString());
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [notes, setNotes] = useState('');
@@ -151,6 +151,7 @@ export default function DailyLogForm(props: { personID: number }) {
                 data-te-datepicker-toggle-button-ref
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Select a date"
+                value={date}
                 onChange={(event) => setDate(event.currentTarget.value)}
               />
             </div>
