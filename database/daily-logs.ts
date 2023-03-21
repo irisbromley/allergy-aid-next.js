@@ -5,9 +5,9 @@ import { sql } from './connect';
 export const createDailyLog = cache(async (input: DailyLogInput) => {
   const [dailyLog] = await sql<{ id: number }[]>`
     INSERT INTO daily_logs
-    ("date", person_id, notes, longitude, latitude)
+    ("date", person_id, notes, severity, longitude, latitude)
     VALUES
-    (${input.date}, ${input.personID}, ${input.notes},${input.longitude},${input.latitude})
+    (${input.date}, ${input.personID}, ${input.notes}, ${input.severity}, ${input.longitude},${input.latitude})
     RETURNING
     id`;
   return dailyLog;
@@ -17,9 +17,9 @@ export const createSymptom = cache(
   async (input: DailyLogInput['symptoms'][number], dailyLogID: number) => {
     const [symptom] = await sql<{ id: number }[]>`
     INSERT INTO symptoms
-    (body_part, daily_log_id, severity, attributes)
+    (body_part, daily_log_id, attributes)
     VALUES
-    (${input.bodyPart}, ${dailyLogID}, ${input.severity},${input.attributes})
+    (${input.bodyPart}, ${dailyLogID}, ${input.attributes})
     RETURNING
     id`;
     return symptom;

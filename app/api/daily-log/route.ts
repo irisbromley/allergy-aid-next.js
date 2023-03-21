@@ -9,11 +9,11 @@ const dailyLogSchema = z.object({
   notes: z.string(),
   longitude: z.number(),
   latitude: z.number(),
+  severity: z.number(),
   symptoms: z.array(
     z.object({
       bodyPart: z.string(),
       attributes: z.array(z.string()),
-      severity: z.number(),
     }),
   ),
 });

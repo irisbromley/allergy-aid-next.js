@@ -30,6 +30,7 @@ CREATE TABLE daily_logs (
   "date" timestamp NOT NULL,
   person_id integer NOT NULL,
   notes text NOT NULL,
+  severity integer NOT NULL,
   longitude double precision NOT NULL,
   latitude double precision NOT NULL
 )`;
@@ -39,7 +40,6 @@ CREATE TABLE symptoms (
   id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   body_part varchar(250) NOT NULL,
   daily_log_id integer NOT NULL,
-  severity integer NOT NULL,
   attributes json NOT NULL
 )
 `;
@@ -47,20 +47,22 @@ CREATE TABLE symptoms (
 
 export async function down(sql) {
   await sql`
-DROP TABLE users
+DROP TABLE symptoms
 `;
-  await sql`
-DROP TABLE persons
-`;
-  await sql`
-  DROP TABLE sessions
-  `;
 
   await sql`
 DROP TABLE daily_logs
 `;
 
   await sql`
-DROP TABLE symptoms
+DROP TABLE sessions
+`;
+
+  await sql`
+DROP TABLE persons
+`;
+
+  await sql`
+DROP TABLE users
 `;
 }

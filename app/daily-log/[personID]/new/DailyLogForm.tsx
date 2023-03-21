@@ -100,7 +100,8 @@ export default function DailyLogForm(props: { personID: number }) {
           latitude,
           longitude,
           notes,
-          symptoms: [{ bodyPart, attributes, severity }],
+          severity,
+          symptoms: [{ bodyPart, attributes }],
           personID: props.personID,
         };
 
