@@ -2,28 +2,46 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import Select from 'react-select';
-import { LoginResponseBody } from '../../../api/(auth)/login/route';
 import {
   CreateDailyLogResponseBody,
   DailyLogInput,
 } from '../../../api/daily-log/route';
 
-export default function DailyLogForm(props: { personID: number; dailyLogId?: number; date?: string; severity?: number; notes?: string;}) {
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+export default function DailyLogForm(props: {
+  personID: number;
+  dailyLogID?: number;
+  date?: string;
+  severity?: number;
+  notes?: string;
+  symptoms?: Array<{
+    id: number;
+    bodyPart: string;
+    attributes: Array<string>;
+  }>;
+}) {
+  const dateOfLog = props.date
+    ? props.date
+    : new Date().toISOString().slice(0, 10);
+  const [date, setDate] = useState(dateOfLog);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
   const [notes, setNotes] = useState(props.notes ?? '');
   const [severity, setSeverity] = useState(props.severity ?? 0);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
+  console.log(severity);
 
   // Store a data structure like this:
   // {
   //   eyes: ['itchy', 'dry'],
   //   skin: ['slimy'],
   // }
+  const initialSymptoms: { [bodyPart: string]: string[] } = {};
+  for (const symptom of props.symptoms ?? []) {
+    initialSymptoms[symptom.bodyPart] = symptom.attributes;
+  }
+  console.log(initialSymptoms);
   const [symptoms, setSymptoms] = useState<{ [bodyPart: string]: string[] }>(
-    {},
+    initialSymptoms,
   );
 
   const router = useRouter();
@@ -65,7 +83,6 @@ export default function DailyLogForm(props: { personID: number; dailyLogId?: num
         { value: 'cough', label: 'cough' },
         { value: 'short of breath', label: 'short of breath' },
         { value: 'Asthma', label: 'asthma' },
-        { value: 'whisteling', label: 'whisteling' },
       ],
     },
     {
@@ -78,6 +95,12 @@ export default function DailyLogForm(props: { personID: number; dailyLogId?: num
       ],
     },
   ];
+
+  function attributeIsChecked(bodyPart: string, attribute: string): boolean {
+    return Array.isArray(symptoms[bodyPart])
+      ? symptoms[bodyPart]!.includes(attribute)
+      : false;
+  }
 
   function toggleAttribute(bodyPart: string, attribute: string) {
     const attributesForPart = symptoms[bodyPart];
@@ -103,7 +126,6 @@ export default function DailyLogForm(props: { personID: number; dailyLogId?: num
       onSubmit={async (event) => {
         event.preventDefault();
 
-        debugger;
         let symptomsArray = Object.entries(symptoms).map(
           ([bodyPart, attributes]) => ({ bodyPart, attributes }),
         );
@@ -119,7 +141,7 @@ export default function DailyLogForm(props: { personID: number; dailyLogId?: num
         };
 
         const response = await fetch('/api/daily-log', {
-          method: props.dailyLogId ? 'PUT' : 'POST',
+          method: props.dailyLogID ? 'PUT' : 'POST',
           body: JSON.stringify(input),
         });
 
@@ -210,16 +232,19 @@ export default function DailyLogForm(props: { personID: number; dailyLogId?: num
                 {part.label}:
                 {part.symptoms.map((symptom) => (
                   <div key={`symptom-${symptom.value}`}>
-                    <input
-                      type="checkbox"
-                      name={symptom.value}
-                      value={symptom.value}
-                      id={symptom.value}
-                      onChange={(event) =>
-                        toggleAttribute(part.value, symptom.value)
-                      }
-                    />
-                    <label htmlFor={symptom.value}>{symptom.label}</label>
+                    <label htmlFor={part.value + symptom.value}>
+                      <input
+                        type="checkbox"
+                        name={part.value + symptom.value}
+                        value={symptom.value}
+                        checked={attributeIsChecked(part.value, symptom.value)}
+                        id={part.value + symptom.value}
+                        onChange={(event) =>
+                          toggleAttribute(part.value, symptom.value)
+                        }
+                      />
+                      {symptom.label}
+                    </label>
                   </div>
                 ))}
               </div>
@@ -228,7 +253,7 @@ export default function DailyLogForm(props: { personID: number; dailyLogId?: num
 
           <div className="flex items-center justify-between">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Create Entry
+              {props.dailyLogID ? 'Update Entry' : 'Create Entry'}
             </button>
           </div>
         </div>

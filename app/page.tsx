@@ -5,6 +5,7 @@ export const metadata = {
   description: 'Daily Pollen Allergy Symptoms Tracker',
 };
 
+
 export const dynamic = 'force-dynamic';
 
 export default function Home() {

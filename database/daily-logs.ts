@@ -26,6 +26,19 @@ export const createSymptom = cache(
   },
 );
 //
+async function getSymptoms(dailyLogID: number) {
+  const symptoms = await sql<any[]>`
+    SELECT
+    *
+    FROM
+    symptoms
+    WHERE
+    daily_log_id = ${dailyLogID}
+    `;
+
+  return symptoms;
+}
+
 export const getDailyLogsByPerson = cache(async (personID: number) => {
   const dailyLogsList = await sql<any[]>`
   SELECT
@@ -40,19 +53,29 @@ export const getDailyLogsByPerson = cache(async (personID: number) => {
   `;
 
   for (const log of dailyLogsList) {
-    const symptoms = await sql<any[]>`
-  SELECT
-  *
-  FROM
-  symptoms
-  WHERE
-  daily_log_id = ${log.id}
-  `;
-    log.symptoms = symptoms;
+    log.symptoms = await getSymptoms(log.id);
   }
 
   return dailyLogsList;
 });
+
+export const getDailyLogByID = cache(
+  async (dailyLogID: number, personID: number) => {
+    const [log] = await sql<any[]>`
+  SELECT
+  *
+  FROM
+  daily_logs
+    WHERE
+  id = ${dailyLogID}
+  AND
+  person_id = ${personID}
+
+  `;
+    log.symptoms = await getSymptoms(log.id);
+    return log;
+  },
+);
 
 // export function getSymptomsByPerson
 
