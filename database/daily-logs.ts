@@ -100,3 +100,12 @@ export const deleteSymptoms = cache(async (id: number) => {
   daily_log_id = ${id}
   `;
 });
+
+export const deleteDailyLog = async (id: number) => {
+  await sql`
+  DELETE FROM
+  daily_logs
+  WHERE
+  id = ${id}
+  `;
+};

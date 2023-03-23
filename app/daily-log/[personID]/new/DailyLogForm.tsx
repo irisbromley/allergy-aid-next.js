@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
   CreateDailyLogInput,
-  CreateDailyLogResponseBody,
   DailyLogInput,
+  DailyLogResponseBody,
 } from '../../../api/daily-log/route';
 
 export default function DailyLogForm(props: {
@@ -149,7 +149,7 @@ export default function DailyLogForm(props: {
           body: JSON.stringify(input),
         });
 
-        const data: CreateDailyLogResponseBody = await response.json();
+        const data: DailyLogResponseBody = await response.json();
 
         if ('errors' in data) {
           setErrors(data.errors);

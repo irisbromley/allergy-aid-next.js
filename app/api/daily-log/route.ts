@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   createDailyLog,
   createSymptom,
+  deleteDailyLog,
   deleteSymptoms,
   updateDailyLog,
 } from '../../../database/daily-logs';
@@ -27,16 +28,20 @@ const updateDailyLogSchema = dailyLogSchema.extend({
   dailyLogID: z.number(),
 });
 
+const deleteDailyLogSchema = z.object({
+  dailyLogID: z.number(),
+});
+
 export type DailyLogInput = z.infer<typeof dailyLogSchema>;
 export type CreateDailyLogInput = z.infer<typeof updateDailyLogSchema>;
 
-export type CreateDailyLogResponseBody =
+export type DailyLogResponseBody =
   | { errors: { message: string }[] }
   | { success: boolean };
 
 export async function POST(
   request: NextRequest,
-): Promise<NextResponse<CreateDailyLogResponseBody>> {
+): Promise<NextResponse<DailyLogResponseBody>> {
   const body = await request.json();
 
   const result = dailyLogSchema.safeParse(body);
@@ -67,7 +72,7 @@ export async function POST(
 
 export async function PUT(
   request: NextRequest,
-): Promise<NextResponse<CreateDailyLogResponseBody>> {
+): Promise<NextResponse<DailyLogResponseBody>> {
   const body = await request.json();
 
   const result = updateDailyLogSchema.safeParse(body);
@@ -98,6 +103,28 @@ export async function PUT(
     { success: true },
     {
       status: 201,
+    },
+  );
+}
+
+export async function DELETE(
+  request: NextRequest,
+): Promise<NextResponse<DailyLogResponseBody>> {
+  const body = await request.json();
+
+  const result = deleteDailyLogSchema.safeParse(body);
+
+  if (!result.success) {
+    return NextResponse.json({ errors: result.error.issues }, { status: 400 });
+  }
+
+  await deleteSymptoms(result.data.dailyLogID);
+  await deleteDailyLog(result.data.dailyLogID);
+
+  return NextResponse.json(
+    { success: true },
+    {
+      status: 200,
     },
   );
 }

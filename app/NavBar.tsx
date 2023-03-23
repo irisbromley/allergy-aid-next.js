@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { getUserBySessionToken } from '../database/users';
 
 export default function NavBar({
   user,
