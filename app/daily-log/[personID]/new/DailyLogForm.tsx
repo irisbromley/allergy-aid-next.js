@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import {
+  CreateDailyLogInput,
   CreateDailyLogResponseBody,
   DailyLogInput,
 } from '../../../api/daily-log/route';
@@ -126,11 +127,11 @@ export default function DailyLogForm(props: {
       onSubmit={async (event) => {
         event.preventDefault();
 
-        let symptomsArray = Object.entries(symptoms).map(
+        const symptomsArray = Object.entries(symptoms).map(
           ([bodyPart, attributes]) => ({ bodyPart, attributes }),
         );
 
-        const input: DailyLogInput = {
+        const input: DailyLogInput | CreateDailyLogInput = {
           date: new Date(date),
           latitude,
           longitude,
@@ -139,6 +140,9 @@ export default function DailyLogForm(props: {
           symptoms: symptomsArray,
           personID: props.personID,
         };
+        if (props.dailyLogID) {
+          (input as CreateDailyLogInput).dailyLogID = props.dailyLogID;
+        }
 
         const response = await fetch('/api/daily-log', {
           method: props.dailyLogID ? 'PUT' : 'POST',

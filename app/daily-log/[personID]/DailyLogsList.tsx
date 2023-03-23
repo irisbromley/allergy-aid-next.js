@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { formatDate } from '../../../utils/formatDate';
 
-export function DailyLogsList(props: { logs: any[] }) {
+export function DailyLogsList(props: { personID: number; logs: any[] }) {
   console.log(props.logs);
   console.log();
   return (
@@ -30,17 +31,17 @@ export function DailyLogsList(props: { logs: any[] }) {
                   </div>
                 ))}
 
-                <button className="bg-red-400 hover:bg-red-600 text-white font-bold px-2 rounded focus:outline-none focus:shadow-outline">
+                <button className="bg-red-400 hover:bg-red-600 text-white font-bold px-2 rounded focus:outline-none focus:shadow-outline mr-2">
                   {' '}
                   X
                 </button>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold  px-2 rounded  focus:outline-none focus:shadow-outline">
+                <Link
+                  href={`/daily-log/${props.personID}/edit/${item.id}`}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold  px-2 rounded  focus:outline-none focus:shadow-outline"
+                >
                   {' '}
-                  Edit
-                </button>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold  px-2 rounded  focus:outline-none focus:shadow-outline">
-                  Save
-                </button>
+                  Update
+                </Link>
               </div>
             </div>
           </div>

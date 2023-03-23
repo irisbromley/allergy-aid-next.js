@@ -77,30 +77,26 @@ export const getDailyLogByID = cache(
   },
 );
 
-// export function getSymptomsByPerson
+export const updateDailyLog = cache(
+  async (input: DailyLogInput, id: number) => {
+    const [dailyLog] = await sql<{ id: number }[]>`
+    UPDATE daily_logs
+    SET "date" = ${input.date},
+      notes = ${input.notes},
+      severity = ${input.severity},
+      longitude = ${input.longitude},
+      latitude = ${input.latitude}
+    WHERE id = ${id}
+      RETURNING id`;
+    return dailyLog;
+  },
+);
 
-// export const createDailyLog = cache(async (token: string, userId: number) => {
-//   const [session] = await sql<{ id: number; token: string; user_id: number }[]>`
-//     INSERT INTO sessions
-//     (token, user_id)
-//     VALUES
-//     (${token}, ${userId})
-//     RETURNING
-//     id, user_id, token
-//   `;
-
-//   await deleteExpiredSession();
-//   return session;
-// });
-
-// export const deleteExpiredSession = cache(async () => {
-//   await sql`
-//   DELETE FROM
-//   sessions
-//   WHERE
-//   expiry_timestamp < now()
-//   `;
-// });
-
-//   return session;
-// });
+export const deleteSymptoms = cache(async (id: number) => {
+  await sql`
+  DELETE FROM
+  symptoms
+  WHERE
+  daily_log_id = ${id}
+  `;
+});
