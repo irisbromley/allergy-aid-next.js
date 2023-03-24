@@ -35,11 +35,11 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
                 <div>{dailyLog.notes} </div>
 
                 {dailyLog.symptoms.map((symptom: any) => (
-                  <div key={symptom.id}>
+                  <div key={`symptom-${symptom.id}`}>
                     {symptom.bodyPart}:
                     <ul>
                       {symptom.attributes.map((attribute: any) => (
-                        <div key={attribute}>
+                        <div key={`attribute-${attribute}`}>
                           <li>{attribute}</li>
                         </div>
                       ))}

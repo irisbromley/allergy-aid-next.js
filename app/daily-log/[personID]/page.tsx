@@ -1,4 +1,3 @@
-import { useRouter } from 'next/navigation';
 import { getDailyLogsByPerson } from '../../../database/daily-logs';
 import { DailyLogsList } from './DailyLogsList';
 
@@ -12,7 +11,7 @@ export const metadata = {
 export default async function DailyLogsListPage({ params }: Props) {
   // Get all entries by this person
   const allLogs = await getDailyLogsByPerson(+params.personID);
-  
+
   return (
     <main>
       <div className="flex flex-row-reverse">
