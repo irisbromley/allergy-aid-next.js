@@ -31,7 +31,12 @@ export default function NavBar({
           </li>
           <li className="p-6">
             {user && (
-              <Link href={`/daily-log/${persons[0]?.id}/new`}>Log my day</Link>
+              <Link href={`/daily-log/${persons[0]?.id}/new`}>New Entry</Link>
+            )}
+          </li>
+          <li className="p-6">
+            {user && (
+              <Link href={`/daily-log/${persons[0]?.id}`}>All Entries</Link>
             )}
           </li>
           <li className="p-6">
@@ -70,7 +75,14 @@ export default function NavBar({
                   href={`/daily-log/${persons[0]?.id}/new`}
                   onClick={handleNav}
                 >
-                  Log my day
+                  New Entry
+                </Link>
+              )}
+            </li>
+            <li className="p-6 text-4xl hover:text-blue-700">
+              {user && (
+                <Link href={`/daily-log/${persons[0]?.id}`} onClick={handleNav}>
+                  All Entries
                 </Link>
               )}
             </li>

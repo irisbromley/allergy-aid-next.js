@@ -29,7 +29,6 @@ export default function DailyLogForm(props: {
   const [notes, setNotes] = useState(props.notes ?? '');
   const [severity, setSeverity] = useState(props.severity ?? 0);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
-  console.log(severity);
 
   // Store a data structure like this:
   // {
@@ -40,7 +39,7 @@ export default function DailyLogForm(props: {
   for (const symptom of props.symptoms ?? []) {
     initialSymptoms[symptom.bodyPart] = symptom.attributes;
   }
-  console.log(initialSymptoms);
+
   const [symptoms, setSymptoms] = useState<{ [bodyPart: string]: string[] }>(
     initialSymptoms,
   );
@@ -232,12 +231,13 @@ export default function DailyLogForm(props: {
 
           <div className="mb-4">
             {bodyParts.map((part) => (
-              <div key={`part-${part.value}`}>
+              <div className="flex flex-wrap" key={`part-${part.value}`}>
                 {part.label}:
                 {part.symptoms.map((symptom) => (
                   <div key={`symptom-${symptom.value}`}>
                     <label htmlFor={part.value + symptom.value}>
                       <input
+                        className="m-1 border-none "
                         type="checkbox"
                         name={part.value + symptom.value}
                         value={symptom.value}
