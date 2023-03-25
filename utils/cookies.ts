@@ -1,7 +1,5 @@
 import cookie from 'cookie';
 
-// import Cookies from 'js-cookie';
-
 // // more robust way to get items from cookies without parsing all the time
 // export function getParsedCookie(key: string): CookieValue | undefined {
 //   const cookieValue = Cookies.get(key);

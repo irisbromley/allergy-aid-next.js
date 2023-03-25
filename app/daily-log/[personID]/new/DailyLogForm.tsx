@@ -24,8 +24,8 @@ export default function DailyLogForm(props: {
     ? props.date
     : new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(dateOfLog);
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  // const [latitude, setLatitude] = useState(0);
+  // const [longitude, setLongitude] = useState(0);
   const [notes, setNotes] = useState(props.notes ?? '');
   const [severity, setSeverity] = useState(props.severity ?? 0);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -132,8 +132,8 @@ export default function DailyLogForm(props: {
 
         const input: DailyLogInput | CreateDailyLogInput = {
           date: new Date(date),
-          latitude,
-          longitude,
+          // latitude,
+          // longitude,
           notes,
           severity,
           symptoms: symptomsArray,
@@ -235,14 +235,13 @@ export default function DailyLogForm(props: {
                 {part.label}:
                 {part.symptoms.map((symptom) => (
                   <div key={`symptom-${symptom.value}`}>
-                    <label htmlFor={part.value + symptom.value}>
+                    <label>
                       <input
                         className="m-1 border-none "
                         type="checkbox"
                         name={part.value + symptom.value}
                         value={symptom.value}
                         checked={attributeIsChecked(part.value, symptom.value)}
-                        id={part.value + symptom.value}
                         onChange={(event) =>
                           toggleAttribute(part.value, symptom.value)
                         }

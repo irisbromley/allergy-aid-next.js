@@ -82,13 +82,17 @@ export const POST = async (
   const serializedCookie = createSerializedRegisterSessionTokenCookie(
     session.token,
   );
-console.log(userWithPasswordHash.id)
+  console.log(userWithPasswordHash.id);
 
-  const persons = await getPersonsByUserID(userWithPasswordHash.id)
+  const persons = await getPersonsByUserID(userWithPasswordHash.id);
 
   return NextResponse.json(
     {
-      user: { id: userWithPasswordHash.id, email: userWithPasswordHash.email, persons  },
+      user: {
+        id: userWithPasswordHash.id,
+        email: userWithPasswordHash.email,
+        persons,
+      },
     },
     {
       status: 200,
