@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy the content of the project to the machine
 COPY . .
 RUN yq --inplace --output-format=json '.dependencies = .dependencies * (.devDependencies | to_entries | map(select(.key | test("^(typescript|@types/*|@upleveled/)"))) | from_entries)' package.json
-RUN yarn install --frozen-lockfile
+RUN yarn install
 RUN yarn build
 
 # Initialize runner layer
