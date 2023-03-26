@@ -24,8 +24,7 @@ export default function DailyLogForm(props: {
     ? props.date
     : new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(dateOfLog);
-  // const [latitude, setLatitude] = useState(0);
-  // const [longitude, setLongitude] = useState(0);
+
   const [notes, setNotes] = useState(props.notes ?? '');
   const [severity, setSeverity] = useState(props.severity ?? 0);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -125,6 +124,23 @@ export default function DailyLogForm(props: {
     <form
       onSubmit={async (event) => {
         event.preventDefault();
+        let longitude = 0;
+        let latitude = 0;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!props.dailyLogID && navigator.geolocation) {
+          const coords = await new Promise<GeolocationCoordinates>(
+            (resolve, reject) => {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  resolve(position.coords);
+                },
+                (err) => reject(err),
+              );
+            },
+          );
+          longitude = coords.longitude;
+          latitude = coords.latitude;
+        }
 
         const symptomsArray = Object.entries(symptoms).map(
           ([bodyPart, attributes]) => ({ bodyPart, attributes }),
@@ -132,8 +148,8 @@ export default function DailyLogForm(props: {
 
         const input: DailyLogInput | CreateDailyLogInput = {
           date: new Date(date),
-          // latitude,
-          // longitude,
+          latitude,
+          longitude,
           notes,
           severity,
           symptoms: symptomsArray,
@@ -242,7 +258,7 @@ export default function DailyLogForm(props: {
                         name={part.value + symptom.value}
                         value={symptom.value}
                         checked={attributeIsChecked(part.value, symptom.value)}
-                        onChange={(event) =>
+                        onChange={() =>
                           toggleAttribute(part.value, symptom.value)
                         }
                       />
