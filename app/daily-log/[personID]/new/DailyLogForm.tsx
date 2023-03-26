@@ -7,6 +7,7 @@ import {
   DailyLogInput,
   DailyLogResponseBody,
 } from '../../../api/daily-log/route';
+import BodyPartLabel from '../../BodyPartLabel';
 
 export default function DailyLogForm(props: {
   personID: number;
@@ -48,7 +49,6 @@ export default function DailyLogForm(props: {
   const bodyParts = [
     {
       value: 'eyes',
-      label: ' 👁 Eyes',
       symptoms: [
         { value: 'watery', label: 'watery' },
         { value: 'dry', label: 'dry' },
@@ -59,7 +59,6 @@ export default function DailyLogForm(props: {
     },
     {
       value: 'nose',
-      label: '👃 Nose',
       symptoms: [
         { value: 'runny', label: 'runny' },
         { value: 'blocked', label: 'blocked' },
@@ -69,7 +68,6 @@ export default function DailyLogForm(props: {
     },
     {
       value: 'mouth',
-      label: '👄 Mouth',
       symptoms: [
         { value: 'itchy', label: 'itchy' },
         { value: 'swollen', label: 'swollen' },
@@ -77,7 +75,6 @@ export default function DailyLogForm(props: {
     },
     {
       value: 'lungs',
-      label: '🫁 Lungs',
       symptoms: [
         { value: 'cough', label: 'cough' },
         { value: 'short of breath', label: 'short of breath' },
@@ -86,7 +83,6 @@ export default function DailyLogForm(props: {
     },
     {
       value: 'skin',
-      label: ' 🦵 Skin',
       symptoms: [
         { value: 'itchy', label: 'itchy' },
         { value: 'dry', label: 'dry' },
@@ -248,7 +244,7 @@ export default function DailyLogForm(props: {
           <div className="mb-4">
             {bodyParts.map((part) => (
               <div className="flex flex-wrap" key={`part-${part.value}`}>
-                {part.label}:
+                <BodyPartLabel bodyPart={part.value} />:
                 {part.symptoms.map((symptom) => (
                   <div key={`symptom-${symptom.value}`}>
                     <label>

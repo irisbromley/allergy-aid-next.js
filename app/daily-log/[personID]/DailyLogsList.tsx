@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatDate } from '../../../utils/formatDate';
+import BodyPartLabel from '../BodyPartLabel';
 
 export function DailyLogsList(props: { personID: number; logs: any[] }) {
   const router = useRouter();
@@ -36,7 +37,7 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
 
                 {dailyLog.symptoms.map((symptom: any) => (
                   <div key={`symptom-${symptom.id}`}>
-                    {symptom.bodyPart}:
+                    <BodyPartLabel bodyPart={symptom.bodyPart} />
                     <ul>
                       {symptom.attributes.map((attribute: any) => (
                         <div key={`attribute-${attribute}`}>

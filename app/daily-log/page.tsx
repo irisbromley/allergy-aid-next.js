@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getUserByEmail } from '../../database/users';
-import DailyLogForm from './[personID]/new/DailyLogForm';
+
+// import DailyLogForm from './[personID]/new/DailyLogForm';
 
 type Props = { params: { email: string; name: string } };
 
