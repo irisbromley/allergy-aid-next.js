@@ -122,8 +122,8 @@ export default function DailyLogForm(props: {
         event.preventDefault();
         let longitude = 0;
         let latitude = 0;
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (!props.dailyLogID && navigator.geolocation) {
+
+        if (!props.dailyLogID) {
           const coords = await new Promise<GeolocationCoordinates>(
             (resolve, reject) => {
               navigator.geolocation.getCurrentPosition(

@@ -10,7 +10,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: (theme) => ({
+      backgroundImage: () => ({
         'comic-clouds': "url('/cartoon-clouds.webp')",
       }),
     },
