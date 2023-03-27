@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import Logo from './Logo';
 
 const inter = Inter({ subsets: ['latin'], weight: '400' });
 
@@ -21,10 +22,13 @@ export default function NavBar({
 
   return (
     <div className="w-full">
-      <div className="font-sans max-w-4xl m-auto flex justify-between items-center text-rgba font-bold px-4">
+      <div className="font-sans max-w-4xl m-auto flex justify-between items-center text-rgba font-bold px-4 py-6">
+        <div className="fill-teal-600">
+          <Logo />
+        </div>
         <Link href="/">
           <h1
-            className={inter.className + '  text-2xl pt-6 dark:text-gray-100 '}
+            className={inter.className + ' text-2xl pt-1 dark:text-gray-100 '}
           >
             ALLERGY AID
           </h1>
@@ -35,18 +39,18 @@ export default function NavBar({
           //   <h1 className="font-bold text-4xl">Allergy Diary</h1>
           // </Link>
         )} */}
-        <ul className="hidden sm:flex">
-          <li className="pt-6 pr-3 text-gray-600 hover:underline underline-offset-8">
+        <ul className="hidden sm:flex gap-x-2">
+          <li className=" text-gray-600 hover:underline underline-offset-8">
             {user && (
               <Link href={`/daily-log/${persons[0]?.id}/new`}>New Entry</Link>
             )}
           </li>
-          <li className="pt-6 pr-3 text-gray-600 hover:underline underline-offset-8">
+          <li className=" text-gray-600 hover:underline underline-offset-8">
             {user && (
               <Link href={`/daily-log/${persons[0]?.id}`}>All Entries</Link>
             )}
           </li>
-          <li className="pt-6 pr-3  text-gray-400 hover:text-gray-700  ">
+          <li className="  text-gray-400 hover:text-gray-700  ">
             {user && (
               <Link href="/settings">
                 <svg
@@ -71,7 +75,7 @@ export default function NavBar({
               </Link>
             )}
           </li>
-          <li className="pt-6 text-gray-400 hover:text-gray-700">
+          <li className=" text-gray-400 hover:text-gray-700">
             {user && (
               <Link href="/logout" prefetch={false}>
                 {/* Logout{' '} */}

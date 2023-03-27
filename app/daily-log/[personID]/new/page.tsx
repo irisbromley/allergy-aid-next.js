@@ -23,10 +23,10 @@ export default async function DailyLogPage({ params }: Props) {
         <h2
           className={
             cousine.className +
-            ' px-6 font-display text-2xl md:-4xl font-bold mb-4 mr-4'
+            ' px-8 pt-4 font-display text-2xl md:-4xl font-bold mb-4 mr-4'
           }
         >
-          {person.name}, make a new entry
+          Make a new entry for {person.name}
         </h2>
       </div>
       <DailyLogForm personID={+params.personID} />

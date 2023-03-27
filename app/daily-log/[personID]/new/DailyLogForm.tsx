@@ -54,7 +54,6 @@ export default function DailyLogForm(props: {
         { value: 'dry', label: 'dry' },
         { value: 'itchy', label: 'itchy' },
         { value: 'swollen', label: 'swollen' },
-        { value: 'foreign body sensation', label: 'foreign body sensation' },
       ],
     },
     {
@@ -182,7 +181,7 @@ export default function DailyLogForm(props: {
 
       {/*  */}
       <div className="w-full max-w-md md:max-w-lg mx-auto">
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="bg-white rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <div
               className="relative mb-3 xl:w-96"
@@ -200,7 +199,7 @@ export default function DailyLogForm(props: {
                 type="date"
                 data-te-datepicker-toggle-ref
                 data-te-datepicker-toggle-button-ref
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="form-input"
                 placeholder="Select a date"
                 value={date}
                 onChange={(event) => setDate(event.currentTarget.value)}
@@ -229,11 +228,11 @@ export default function DailyLogForm(props: {
           <div className="mb-4">
             <label
               htmlFor="additional notes"
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 text-sm  mb-2"
             >
               <textarea
                 rows={2}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="form-input"
                 value={notes}
                 placeholder="Comments ..."
                 onChange={(event) => setNotes(event.currentTarget.value)}
@@ -243,14 +242,14 @@ export default function DailyLogForm(props: {
 
           <div className="mb-4 divide-y ">
             {bodyParts.map((part) => (
-              <div key={`part-${part.value}`}>
+              <div className=" py-4" key={`part-${part.value}`}>
                 <BodyPartLabel bodyPart={part.value} />
-                <div className="flex flex-wrap items-baseline gap-x-4 space-y-4  my-4 justify-end ">
+                <div className="flex flex-wrap items-baseline gap-x-4 space-y-4  justify-end ">
                   {part.symptoms.map((symptom) => (
                     <div key={`symptom-${symptom.value}`}>
                       <button
                         className={
-                          ' rounded-full border-solid border px-4 py-1 ' +
+                          ' rounded-full border-solid border px-4 py-1 text-sm ' +
                           (attributeIsChecked(part.value, symptom.value)
                             ? 'bg-violet-500 text-violet-100 font-medium border-violet-500'
                             : 'bg-violet-100 border-violet-500 font-medium text-violet-700  ')
@@ -271,8 +270,8 @@ export default function DailyLogForm(props: {
             ))}
           </div>
 
-          <div className="flex items-center justify-between">
-            <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          <div className="flex justify-end mt-10">
+            <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
               {props.dailyLogID ? 'Update Entry' : 'Create Entry'}
             </button>
           </div>

@@ -61,7 +61,7 @@ export default function LoginForm() {
               htmlFor="email"
             >
               <input
-                className=" appearance-none border border-gray-500  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="form-input"
                 placeholder="What is your Email?"
                 type="email"
                 value={email}
@@ -77,7 +77,7 @@ export default function LoginForm() {
               htmlFor="password"
             >
               <input
-                className=" appearance-none border  border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className=" form-input"
                 placeholder="What is your Password?"
                 type="password"
                 minLength={8}
