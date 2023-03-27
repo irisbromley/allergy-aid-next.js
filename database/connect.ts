@@ -1,7 +1,7 @@
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 
-if (!process.env.FLY_IO) {
+if (!process.env.FLY_APP_NAME) {
   config();
 }
 
