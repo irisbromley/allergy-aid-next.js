@@ -1,10 +1,12 @@
 'use client';
 
+import { Cousine } from 'next/font/google';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatDate } from '../../../utils/formatDate';
 import BodyPartLabel from '../BodyPartLabel';
 
+const cousine = Cousine({ subsets: ['latin'], weight: '400' });
 export function DailyLogsList(props: { personID: number; logs: any[] }) {
   const router = useRouter();
 
@@ -47,21 +49,22 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
                     </ul>
                   </div>
                 ))}
-
-                <button
-                  onClick={() => deleteLog(dailyLog.id)}
-                  className="bg-red-400 hover:bg-red-600 text-white font-bold px-2 rounded focus:outline-none focus:shadow-outline mr-2"
-                >
-                  {' '}
-                  X
-                </button>
-                <Link
-                  href={`/daily-log/${props.personID}/edit/${dailyLog.id}`}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold  px-2 rounded  focus:outline-none focus:shadow-outline"
-                >
-                  {' '}
-                  Update
-                </Link>
+                <div className="flex items-center justify-between">
+                  <Link
+                    href={`/daily-log/${props.personID}/edit/${dailyLog.id}`}
+                    className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded  focus:outline-none focus:shadow-outline"
+                  >
+                    {' '}
+                    Update
+                  </Link>
+                  <button
+                    onClick={() => deleteLog(dailyLog.id)}
+                    className="text-orange-600 hover:bg-orange-600 hover:text-white bg-white font-bold py-2 px-4 rounded border-solid border border-orange-600 focus:outline-none focus:shadow-outline"
+                  >
+                    {' '}
+                    X
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -216,7 +216,7 @@ export default function DailyLogForm(props: {
               <input
                 required
                 placeholder="Severity"
-                className="transparent h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200"
+                className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200 accent-violet-700 "
                 type="range"
                 min={1}
                 max={4}
@@ -241,33 +241,38 @@ export default function DailyLogForm(props: {
             </label>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 divide-y ">
             {bodyParts.map((part) => (
-              <div className="flex flex-wrap" key={`part-${part.value}`}>
-                <BodyPartLabel bodyPart={part.value} />:
-                {part.symptoms.map((symptom) => (
-                  <div key={`symptom-${symptom.value}`}>
-                    <label>
-                      <input
-                        className="m-1 border-none "
-                        type="checkbox"
+              <div key={`part-${part.value}`}>
+                <BodyPartLabel bodyPart={part.value} />
+                <div className="flex flex-wrap items-baseline gap-x-4 space-y-4  my-4 justify-end ">
+                  {part.symptoms.map((symptom) => (
+                    <div key={`symptom-${symptom.value}`}>
+                      <button
+                        className={
+                          ' rounded-full border-solid border px-4 py-1 ' +
+                          (attributeIsChecked(part.value, symptom.value)
+                            ? 'bg-violet-500 text-violet-100 font-medium border-violet-500'
+                            : 'bg-violet-100 border-violet-500 font-medium text-violet-700  ')
+                        }
+                        type="button"
                         name={part.value + symptom.value}
                         value={symptom.value}
-                        checked={attributeIsChecked(part.value, symptom.value)}
-                        onChange={() =>
+                        onClick={() =>
                           toggleAttribute(part.value, symptom.value)
                         }
-                      />
-                      {symptom.label}
-                    </label>
-                  </div>
-                ))}
+                      >
+                        <div>{symptom.label}</div>
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
 
           <div className="flex items-center justify-between">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               {props.dailyLogID ? 'Update Entry' : 'Create Entry'}
             </button>
           </div>

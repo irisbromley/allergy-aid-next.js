@@ -1,25 +1,13 @@
 import LoginForm from './LoginForm';
 
 export const metadata = {
-  title: 'Allergy Diary Login',
-  description: 'Daily Pollen Allergy Symptoms Tracker',
+  title: 'Allergy Aid Login',
+  description:
+    'Allergy Aid, your daily Allergy Symptoms Tracker here to help you get better control over your allergies and live a better live',
 };
-
 
 export const dynamic = 'force-dynamic';
 
 export default function Home() {
-  return (
-    <main>
-      <div className="flex flex-row-reverse">
-        <div>
-          <h2 className="text-white text-2xl md:-4xl lg:text-6xl font-bold mb-4">
-            Login
-          </h2>
-        </div>
-      </div>
-
-      <LoginForm />
-    </main>
-  );
+  return <LoginForm />;
 }

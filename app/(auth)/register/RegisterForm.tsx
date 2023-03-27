@@ -27,7 +27,7 @@ export default function RegisterForm() {
           setErrors(data.errors);
           return;
         }
-        console.log(data.user.id);
+
         router.push(`./../daily-log/${data.user.id}/new`);
       }}
     >

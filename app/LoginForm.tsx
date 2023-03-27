@@ -13,6 +13,7 @@ export default function LoginForm() {
 
   return (
     <form
+      className="h-full"
       onSubmit={async (event) => {
         event.preventDefault();
 
@@ -52,15 +53,15 @@ export default function LoginForm() {
         </div>
       ))}
 
-      <div className="w-full max-w-md md:max-w-lg mx-auto">
-        <div className="bg-white shadow-md rounded px-8 pt-8 pb-8 mb-4">
+      <div className="w-full h-full md:max-w-lg mx-auto mt-16 ">
+        <div className="bg-white rounded px-4 pt-8 pb-8 mb-4 ">
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
               htmlFor="email"
             >
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className=" appearance-none border border-gray-500  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="What is your Email?"
                 type="email"
                 value={email}
@@ -76,10 +77,10 @@ export default function LoginForm() {
               htmlFor="password"
             >
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className=" appearance-none border  border-gray-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="What is your Password?"
                 type="password"
-                minLength={4}
+                minLength={8}
                 title="Password should be digits (0 to 9) or alphabets (a to z)."
                 value={password}
                 required
@@ -90,12 +91,12 @@ export default function LoginForm() {
 
           <div className="flex items-center justify-between">
             <Link
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              className="inline-block align-baseline font-bold text-sm text-teal-600 underline-offset-8 hover:underline"
               href="/register"
             >
               Register here
             </Link>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline">
               Log in
             </button>
           </div>

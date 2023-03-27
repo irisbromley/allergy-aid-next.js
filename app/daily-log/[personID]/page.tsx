@@ -3,11 +3,6 @@ import { DailyLogsList } from './DailyLogsList';
 
 type Props = { params: { personID: string } };
 
-export const metadata = {
-  title: 'Allergy Diary',
-  description: 'Daily Allergy Symptoms Diary',
-};
-
 export default async function DailyLogsListPage({ params }: Props) {
   // Get all entries by this person
   const allLogs = await getDailyLogsByPerson(+params.personID);
@@ -15,8 +10,8 @@ export default async function DailyLogsListPage({ params }: Props) {
   return (
     <main>
       <div className="flex flex-row-reverse">
-        <h2 className="text-white text-2xl md:-4xl lg:text-6xl font-bold mb-4">
-          All your diary entries are here:
+        <h2 className="text-white text-2xl md:-4xl lg:text-6xl font-bold mb-4 mr-4">
+          All entries
         </h2>
       </div>
       <DailyLogsList logs={allLogs} personID={+params.personID} />

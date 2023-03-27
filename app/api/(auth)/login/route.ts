@@ -61,7 +61,7 @@ export const POST = async (
 
   if (!passwordIsValid) {
     return NextResponse.json(
-      { errors: [{ message: 'password is not valid' }] },
+      { errors: [{ message: 'email or password not valid' }] },
       { status: 401 },
     );
   }
@@ -70,7 +70,6 @@ export const POST = async (
   const token = crypto.randomBytes(80).toString('base64');
 
   const session = await createSession(token, userWithPasswordHash.id);
-  console.log(session);
 
   if (!session) {
     return NextResponse.json(
@@ -82,7 +81,6 @@ export const POST = async (
   const serializedCookie = createSerializedRegisterSessionTokenCookie(
     session.token,
   );
-  console.log(userWithPasswordHash.id);
 
   const persons = await getPersonsByUserID(userWithPasswordHash.id);
 
