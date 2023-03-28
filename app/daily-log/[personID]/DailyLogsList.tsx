@@ -1,12 +1,10 @@
 'use client';
 
-import { Cousine } from 'next/font/google';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatDate } from '../../../utils/formatDate';
 import BodyPartLabel from '../BodyPartLabel';
 
-const cousine = Cousine({ subsets: ['latin'], weight: '400' });
 export function DailyLogsList(props: { personID: number; logs: any[] }) {
   const router = useRouter();
 
@@ -24,7 +22,7 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
   }
 
   return (
-    <div >
+    <div>
       {props.logs.map((dailyLog) => (
         <div
           key={`item -${dailyLog.id}`}

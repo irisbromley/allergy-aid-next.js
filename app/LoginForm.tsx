@@ -13,7 +13,7 @@ export default function LoginForm() {
 
   return (
     <form
-      className="h-full"
+      className="h-full max-w-md mx-auto"
       onSubmit={async (event) => {
         event.preventDefault();
 
