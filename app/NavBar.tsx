@@ -26,13 +26,13 @@ export default function NavBar({
         <div className="fill-teal-600">
           <Logo />
         </div>
-        <Link href="/">
+        {/* <Link href="/"> */}
           <h1
             className={inter.className + ' text-2xl pt-1 dark:text-gray-100 '}
           >
             ALLERGY AID
           </h1>
-        </Link>
+        {/* </Link> */}
 
         {/* {user && (
           // <Link href="/">

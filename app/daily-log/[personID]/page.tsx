@@ -6,6 +6,10 @@ import { DailyLogsList } from './DailyLogsList';
 type Props = { params: { personID: string } };
 const cousine = Cousine({ subsets: ['latin'], weight: '400' });
 
+export const metadata = {
+  title: 'Allergy Aid',
+  description: 'All Allergy Symptoms Entries',
+};
 export default async function DailyLogsListPage({ params }: Props) {
   // Get all entries by this person
   const allLogs = await getDailyLogsByPerson(+params.personID);

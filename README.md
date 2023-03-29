@@ -24,3 +24,7 @@ In addition, Allergy Aid also supports the ability for one user to log symptoms 
 ## Conclusion
 
 Allergy Aid is a powerful and flexible allergy symptom tracker that can be used by individuals, parents, caretakers, and medical professionals. With its comprehensive tracking of symptoms and support for multiple users, it is an essential tool for anyone dealing with allergies.
+
+## Attribute for Pollen Image used
+
+<a href="https://www.flaticon.com/free-icons/pollen" title="pollen icons">Pollen icons created by Freepik - Flaticon</a>

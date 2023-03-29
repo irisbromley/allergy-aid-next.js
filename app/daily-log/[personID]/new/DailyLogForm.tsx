@@ -227,7 +227,7 @@ export default function DailyLogForm(props: {
 
           <div className="mb-4">
             <label
-              htmlFor="additional notes"
+              htmlFor="additional comments"
               className="block text-gray-700 text-sm  mb-2"
             >
               <textarea

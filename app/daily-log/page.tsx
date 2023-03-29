@@ -6,8 +6,9 @@ import { getUserByEmail } from '../../database/users';
 type Props = { params: { email: string; name: string } };
 
 export const metadata = {
-  title: 'Track your pollen allergy sypmtoms',
-  description: 'Daily Pollen Allergy Symptoms Tracker',
+  title: 'Allergy Aid Login',
+  description:
+    'Allergy Aid, your daily Allergy Symptoms Tracker here to help you get better control over your allergies and live a better live',
 };
 
 export default async function DailyLogPage({ params }: Props) {
