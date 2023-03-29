@@ -19,7 +19,7 @@ export default async function DailyLogPage({ params }: Props) {
   }
   return (
     <main>
-      <div className="flex flex-row">
+      <div className="w-full max-w-md md:max-w-lg mx-auto">
         <h2
           className={
             cousine.className +
