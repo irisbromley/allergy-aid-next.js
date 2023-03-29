@@ -22,16 +22,19 @@ export default async function RootLayout({
   const token = cookieStore.get('sessionToken');
   const user = token && (await getUserBySessionToken(token.value));
   const persons = user ? await getPersonsByUserID(user.id) : [];
+  const theme = cookieStore.get('theme');
+  console.log(theme);
 
   return (
     <html lang="en">
       <head />
 
-      <body className={inter.className + ' min-h-screen flex flex-col'}>
+      <body className={inter.className + ' min-h-screen flex flex-col '}>
         <header>
           <NavBar user={user} persons={persons} />
         </header>
-        <main className="  flex-1">{children}</main>
+
+        <main className="  flex-1 pt-8">{children}</main>
       </body>
     </html>
   );

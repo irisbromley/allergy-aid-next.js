@@ -28,3 +28,7 @@ Allergy Aid is a powerful and flexible allergy symptom tracker that can be used 
 ## Attribute for Pollen Image used
 
 <a href="https://www.flaticon.com/free-icons/pollen" title="pollen icons">Pollen icons created by Freepik - Flaticon</a>
+
+## Packages used:
+
+- ley

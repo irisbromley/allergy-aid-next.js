@@ -180,11 +180,11 @@ export default function DailyLogForm(props: {
       ))}
 
       {/*  */}
-      <div className="w-full max-w-md md:max-w-lg mx-auto">
-        <div className="bg-white rounded px-8 pt-6 pb-8 mb-4">
+      <div className="w-full max-w-md md:max-w-lg mx-auto px-6">
+        <div className="bg-white rounded  mb-4">
           <div className="mb-4">
             <div
-              className="relative mb-3 xl:w-96"
+              className="relative mb-3"
               data-te-datepicker-init
               data-te-input-wrapper-init
             >
@@ -194,91 +194,88 @@ export default function DailyLogForm(props: {
               >
                 Select a date:
               </label>
+
               <input
                 required
                 type="date"
                 data-te-datepicker-toggle-ref
                 data-te-datepicker-toggle-button-ref
-                className="form-input"
+                className="form-input "
                 placeholder="Select a date"
                 value={date}
                 onChange={(event) => setDate(event.currentTarget.value)}
               />
             </div>
           </div>
-          <div className="mb-4">
-            <p className="block text-gray-700 text-sm font-bold mb-2">
-              Severity {severity}:
-            </p>
+        </div>
+        <div className="mb-4">
+          <p className="block text-gray-700 text-sm font-bold mb-2">
+            Severity {severity}:
+          </p>
 
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              <input
-                required
-                placeholder="Severity"
-                className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200 accent-violet-700 "
-                type="range"
-                min={1}
-                max={4}
-                value={severity}
-                onChange={(event) => setSeverity(+event.currentTarget.value)}
-              />
-            </label>
-          </div>
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            <input
+              required
+              placeholder="Severity"
+              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200 accent-violet-700 "
+              type="range"
+              min={1}
+              max={4}
+              value={severity}
+              onChange={(event) => setSeverity(+event.currentTarget.value)}
+            />
+          </label>
+        </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="additional comments"
-              className="block text-gray-700 text-sm  mb-2"
-            >
-              <textarea
-                rows={4}
-                className="form-input"
-                value={notes}
-                placeholder="Comments ..."
-                onChange={(event) => setNotes(event.currentTarget.value)}
-              />
-            </label>
-          </div>
+        <div className="mb-4">
+          <label
+            htmlFor="additional comments"
+            className="block text-gray-700 text-sm  mb-2"
+          >
+            <textarea
+              rows={4}
+              className="form-input"
+              value={notes}
+              placeholder="Comments ..."
+              onChange={(event) => setNotes(event.currentTarget.value)}
+            />
+          </label>
+        </div>
 
-          <div className="mb-4 divide-y ">
-            {bodyParts.map((part) => (
-              <div className=" py-4" key={`part-${part.value}`}>
-                <BodyPartLabel bodyPart={part.value} />
-                <div className="flex flex-wrap items-baseline gap-x-4 space-y-4  justify-end ">
-                  {part.symptoms.map((symptom) => (
-                    <div key={`symptom-${symptom.value}`}>
-                      <button
-                        className={
-                          ' rounded-full border-solid border px-4 py-1 text-sm ' +
-                          (attributeIsChecked(part.value, symptom.value)
-                            ? 'bg-violet-500 text-violet-100 font-medium border-violet-500'
-                            : 'bg-violet-100 border-violet-500 font-medium text-violet-700  ')
-                        }
-                        type="button"
-                        name={part.value + symptom.value}
-                        value={symptom.value}
-                        onClick={() =>
-                          toggleAttribute(part.value, symptom.value)
-                        }
-                      >
-                        <div>{symptom.label}</div>
-                      </button>
-                    </div>
-                  ))}
-                </div>
+        <div className="mb-4 divide-y ">
+          {bodyParts.map((part) => (
+            <div className=" py-4" key={`part-${part.value}`}>
+              <BodyPartLabel bodyPart={part.value} />
+              <div className="flex flex-wrap items-baseline gap-x-4 space-y-4  justify-end ">
+                {part.symptoms.map((symptom) => (
+                  <div key={`symptom-${symptom.value}`}>
+                    <button
+                      className={
+                        ' rounded-full border-solid border px-4 py-1 text-sm ' +
+                        (attributeIsChecked(part.value, symptom.value)
+                          ? 'bg-violet-500 text-violet-100 font-medium border-violet-500'
+                          : 'bg-violet-100 border-violet-500 font-medium text-violet-700  ')
+                      }
+                      type="button"
+                      name={part.value + symptom.value}
+                      value={symptom.value}
+                      onClick={() => toggleAttribute(part.value, symptom.value)}
+                    >
+                      <div>{symptom.label}</div>
+                    </button>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
 
-          <div className="flex justify-end mt-10">
-            <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
-              {props.dailyLogID ? 'Update Entry' : 'Create Entry'}
-            </button>
-          </div>
+        <div className="flex justify-end mt-10 mb-10">
+          <button className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none">
+            {props.dailyLogID ? 'Update Entry' : 'Create Entry'}
+          </button>
         </div>
       </div>
-
-      {/*  */}
     </form>
   );
 }

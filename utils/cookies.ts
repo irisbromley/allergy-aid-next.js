@@ -33,11 +33,11 @@ import cookie from 'cookie';
 //   return JSON.stringify(value);
 // }
 
-export function createSerializedRegisterSessionTokenCookie(token: string) {
-  // in the deployed version we want our cookie to be sent only under HTTPS
-  // in the development version we want out cookie to be sent under HTTP
-  const isInProduction = process.env.NODE_ENV === 'production';
+// in the deployed version we want our cookie to be sent only under HTTPS
+// in the development version we want our cookie to be sent under HTTP
+const isInProduction = process.env.NODE_ENV === 'production';
 
+export function createSerializedRegisterSessionTokenCookie(token: string) {
   const maxAge = 60 * 60 * 24; // 24 hours in seconds
 
   return cookie.serialize('sessionToken', token, {
@@ -48,6 +48,24 @@ export function createSerializedRegisterSessionTokenCookie(token: string) {
       Date.now() + maxAge * 1000, // 24 hours in milliseconds
     ),
 
+    httpOnly: true,
+    secure: isInProduction,
+    path: '/',
+    // Be explicit about new default behavior
+    // in browsers
+    // https://web.dev/samesite-cookies-explained/
+    sameSite: 'lax', // this prevents CSRF attacks
+  });
+}
+
+export function storeThemeCookie(theme: 'dark' | 'light') {
+  const maxAge = 60 * 60 * 24 * 365; // 1 year
+
+  return cookie.serialize('theme', theme, {
+    maxAge,
+    expires: new Date(
+      Date.now() + maxAge * 1000, // 1 year in milliseconds
+    ),
     httpOnly: true,
     secure: isInProduction,
     path: '/',

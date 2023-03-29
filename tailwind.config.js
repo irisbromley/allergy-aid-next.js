@@ -16,9 +16,6 @@ module.exports = {
     },
 
     extend: {
-      backgroundImage: () => ({
-        'comic-clouds': "url('/cartoon-clouds.webp')",
-      }),
       scale: {
         '-100': '-1',
       },
