@@ -17,15 +17,17 @@ export default async function DailyLogsListPage({ params }: Props) {
 
   return (
     <main>
-      <h2
-        className={
-          cousine.className +
-          ' px-8 pt-4 font-display text-2xl md:-4xl font-bold mb-4 mr-4'
-        }
-      >
-        {person?.name}
-      </h2>
-
+      <div className="w-full max-w-md md:max-w-lg mx-auto">
+        <h2
+          className={
+            cousine.className +
+            ' px-8 pt-4 font-display text-2xl md:-4xl font-bold  mr-4  '
+          }
+        >
+          {' '}
+          All entries for {person?.name}
+        </h2>
+      </div>
       <DailyLogsList logs={allLogs} personID={+params.personID} />
     </main>
   );

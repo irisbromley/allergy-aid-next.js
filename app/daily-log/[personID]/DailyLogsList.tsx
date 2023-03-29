@@ -28,23 +28,24 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
           key={`item -${dailyLog.id}`}
           className="w-full max-w-md md:max-w-lg mx-auto"
         >
-          <div className="bg-white rounded px-8 pt-6 pb-8 mb-4">
+          <div className="bg-white rounded px-8 pt-6 pb-8 mb-6">
             <div>
-              <div className="text-gray-700 text-sm mb-2">
+              <div className="text-gray-600 text-sm mb-2">
                 {formatDate(dailyLog.date)}
               </div>
-              <div className="mb-2">{dailyLog.notes} </div>
+              <div className="mb-4">{dailyLog.notes} </div>
 
               {dailyLog.symptoms.map((symptom: any) => (
-                <div className="flex " key={`symptom-${symptom.id}`}>
-                  <BodyPartLabel bodyPart={symptom.bodyPart} />
+                <div className="flex gap-x-2 " key={`symptom-${symptom.id}`}>
+                  <div className="flex">
+                    {' '}
+                    <BodyPartLabel bodyPart={symptom.bodyPart} /> :
+                  </div>
                   <ul className="flex gap-2">
-                    {symptom.attributes.map((attribute: any) => (
-                      <li
-                        key={`attribute-${attribute}`}
-                        className="rounded-full border-solid border px-2 py-0.5 text-xs "
-                      >
+                    {symptom.attributes.map((attribute: any, index: number) => (
+                      <li key={`attribute-${attribute}`} className="   ">
                         {attribute}
+                        {index !== symptom.attributes.length - 1 ? ',' : ''}
                       </li>
                     ))}
                   </ul>

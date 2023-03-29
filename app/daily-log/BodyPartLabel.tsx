@@ -7,10 +7,5 @@ export default function BodyPartLabel(props: { bodyPart: string }) {
     skin: ' 🦵 Skin',
   };
 
-  return (
-    <div>
-      {bodyPartLabels[props.bodyPart] ??
-        props.bodyPart}
-    </div>
-  );
+  return <div>{bodyPartLabels[props.bodyPart] ?? props.bodyPart}</div>;
 }
