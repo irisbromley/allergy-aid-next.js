@@ -26,7 +26,7 @@ export default async function DailyLogPage({ params }: Props) {
             ' px-8 pt-4 font-display text-2xl md:-4xl font-bold mb-4 mr-4'
           }
         >
-          Make a new entry for {person.name}
+          New entry for {person.name}
         </h2>
       </div>
       <DailyLogForm personID={+params.personID} />

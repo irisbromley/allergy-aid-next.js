@@ -23,7 +23,7 @@ export default async function EditDailyLogPage({ params }: Props) {
             ' px-8 pt-4 font-display text-2xl md:-4xl font-bold  mr-4  '
           }
         >
-          updating entry for: {person.name}
+          Update entry for {person.name}
         </h2>
       </div>
       <DailyLogForm

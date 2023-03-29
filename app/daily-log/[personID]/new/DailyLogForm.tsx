@@ -231,7 +231,7 @@ export default function DailyLogForm(props: {
               className="block text-gray-700 text-sm  mb-2"
             >
               <textarea
-                rows={2}
+                rows={4}
                 className="form-input"
                 value={notes}
                 placeholder="Comments ..."
