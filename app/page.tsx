@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { getPersonsByUserID, getUserBySessionToken } from '../database/users';
 import LoginForm from './LoginForm';
 
@@ -11,15 +11,19 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function Home() {
-  const cookieStore = cookies();
-  const token = cookieStore.get('sessionToken');
-  const user = token && (await getUserBySessionToken(token.value));
-  const persons = user ? await getPersonsByUserID(user.id) : [];
+export default async function HomePage() {
+  // check if there is a valid session
+  const sessionTokenCookie = cookies().get('sessionToken');
+  console.log({ sessionTokenCookie });
 
-  const router = useRouter();
-  if (user) {
-    await router.push(`/daily-log/${persons[0]?.id}/new`);
+  const session =
+    sessionTokenCookie &&
+    (await getUserBySessionToken(sessionTokenCookie.value));
+
+  // if so redirect to daily_log
+  if (session) {
+    const persons = await getPersonsByUserID(session.id);
+    redirect(`/../daily-log/${persons[0]?.id}/new`);
   }
 
   return <LoginForm />;
