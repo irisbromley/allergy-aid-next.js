@@ -26,15 +26,19 @@ export default async function RootLayout({
   console.log(theme);
 
   return (
-    <html lang="en">
+    <html lang="en" className={theme?.value === 'dark' ? 'dark' : 'light'}>
       <head />
 
-      <body className={inter.className + ' min-h-screen flex flex-col '}>
+      <body
+        className={
+          inter.className + ' min-h-screen flex flex-col dark:bg-gray-800'
+        }
+      >
         <header>
           <NavBar user={user} persons={persons} />
         </header>
 
-        <main className="  flex-1 pt-8">{children}</main>
+        <main className=" dark:text-white flex-1 pt-8">{children}</main>
       </body>
     </html>
   );

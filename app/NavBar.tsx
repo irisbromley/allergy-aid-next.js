@@ -23,15 +23,13 @@ export default function NavBar({
   return (
     <div className="w-full">
       <div className="font-sans max-w-4xl m-auto flex justify-between items-center text-rgba font-bold px-4 py-6">
-        <div className="fill-teal-600">
+        <div className="fill-teal-600 dark:fill-teal-300">
           <Logo />
         </div>
         {/* <Link href="/"> */}
-          <h1
-            className={inter.className + ' text-2xl pt-1 dark:text-gray-100 '}
-          >
-            ALLERGY AID
-          </h1>
+        <h1 className={inter.className + ' text-2xl pt-1 dark:text-gray-100 '}>
+          ALLERGY AID
+        </h1>
         {/* </Link> */}
 
         {/* {user && (
@@ -39,18 +37,18 @@ export default function NavBar({
           //   <h1 className="font-bold text-4xl">Allergy Diary</h1>
           // </Link>
         )} */}
-        <ul className="hidden sm:flex gap-x-2">
-          <li className=" text-gray-600 hover:underline underline-offset-8">
+        <ul className="hidden sm:flex gap-x-2 ">
+          <li className=" text-gray-600 hover:underline underline-offset-8  dark:text-white">
             {user && (
               <Link href={`/daily-log/${persons[0]?.id}/new`}>New Entry</Link>
             )}
           </li>
-          <li className=" text-gray-600 hover:underline underline-offset-8">
+          <li className=" text-gray-600 hover:underline underline-offset-8 dark:text-white">
             {user && (
               <Link href={`/daily-log/${persons[0]?.id}`}>All Entries</Link>
             )}
           </li>
-          <li className="  text-gray-400 hover:text-gray-700  ">
+          <li className="  text-gray-400 hover:text-gray-700 dark:text-white  dark:hover:text-teal-500">
             {user && (
               <Link href="/settings">
                 <svg
@@ -59,7 +57,7 @@ export default function NavBar({
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="w-6 h-6  "
                 >
                   <path
                     strokeLinecap="round"
@@ -75,7 +73,7 @@ export default function NavBar({
               </Link>
             )}
           </li>
-          <li className=" text-gray-400 hover:text-gray-700">
+          <li className=" text-gray-400 hover:text-gray-700  dark:hover:text-teal-500">
             {user && (
               <Link href="/logout" prefetch={false}>
                 {/* Logout{' '} */}
@@ -102,7 +100,10 @@ export default function NavBar({
         {user && (
           <button
             onClick={handleNav}
-            className={(nav ? ' text-white' : ' ') + ' block sm:hidden z-20'}
+            className={
+              (nav ? ' text-white' : ' ') +
+              ' block sm:hidden z-20  dark:text-white'
+            }
           >
             {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
           </button>
@@ -110,7 +111,7 @@ export default function NavBar({
 
         {/* Mobile menu */}
         <div
-          className={`sm:hidden z-10 absolute top-0  right-0 bottom-0 flex justify-center items-center w-full h-screen text-center text-white bg-teal-600 ease-in duration-300 ${
+          className={`sm:hidden z-10 absolute top-0  right-0 bottom-0 flex justify-center items-center w-full h-screen text-center text-white bg-teal-600 ease-in duration-300 dark:bg-teal-900 ${
             nav ? 'left-0' : 'left-[-100%]'
           }`}
         >

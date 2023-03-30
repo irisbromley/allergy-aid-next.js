@@ -191,7 +191,7 @@ export default function DailyLogForm(props: {
             >
               <label
                 htmlFor="floatingInput"
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-700 text-sm font-bold mb-2 dark:bg-gray-800 dark:text-white dark:pb-2 dark:mb-0"
               >
                 Select a date:
               </label>
@@ -201,7 +201,7 @@ export default function DailyLogForm(props: {
                 type="date"
                 data-te-datepicker-toggle-ref
                 data-te-datepicker-toggle-button-ref
-                className="form-input "
+                className="form-input dark:border-none "
                 placeholder="Select a date"
                 value={date}
                 onChange={(event) => setDate(event.currentTarget.value)}
@@ -210,15 +210,16 @@ export default function DailyLogForm(props: {
           </div>
         </div>
         <div className="mb-4">
-          <div className="block text-gray-700 text-sm font-bold mb-2">
-            Severity <span className="text-violet-700">{severity}</span>:
+          <div className="block text-gray-700 text-sm font-bold mb-2 dark:text-white">
+            Severity{' '}
+            <span className="text-violet-700 dark:text-white">{severity}</span>:
           </div>
 
           <label className="block text-gray-700 text-sm font-bold mb-2">
             <input
               required
               placeholder="Severity"
-              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-violet-200 accent-violet-700 "
+              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-violet-200 accent-violet-700 dark:accent-teal-500 dark:bg-white"
               type="range"
               min={0}
               max={4}
@@ -235,7 +236,7 @@ export default function DailyLogForm(props: {
           >
             <textarea
               rows={4}
-              className="form-input"
+              className="form-input dark:text-black"
               value={notes}
               placeholder="Comments ..."
               onChange={(event) => setNotes(event.currentTarget.value)}
@@ -254,8 +255,8 @@ export default function DailyLogForm(props: {
                       className={
                         ' rounded-full border-solid border px-4 py-1 text-sm ' +
                         (attributeIsChecked(part.value, symptom.value)
-                          ? 'bg-violet-500 text-violet-100 font-medium border-violet-500'
-                          : 'bg-violet-100 border-violet-500 font-medium text-violet-700  ')
+                          ? 'bg-violet-500 text-violet-100 font-medium border-violet-500  '
+                          : 'bg-violet-100 border-violet-500 font-medium text-violet-700  dark:text-violet-900 dark:bg-violet-00')
                       }
                       type="button"
                       name={part.value + symptom.value}

@@ -34,7 +34,7 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
                 {formatDate(dailyLog.date)}
               </div>
               <div className="mb-4">{dailyLog.notes} </div>
-              <div className="text-violet-700 rounded-full border-solid border px-4 py-1 text-sm bg-violet-100 border-violet-500 font-medium min-w-min mb-4 inline-block ">
+              <div className="text-violet-700 rounded-full border-solid border px-4 py-1 text-sm bg-violet-100 border-violet-500 font-medium min-w-min mb-4 inline-block  dark:text-white  dark:bg-violet-700 dark:border-none ">
                 Severity: {dailyLog.severity}{' '}
               </div>
               {dailyLog.symptoms.map((symptom: any) => (

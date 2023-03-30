@@ -1,6 +1,5 @@
 import { Cousine } from 'next/font/google';
 import { cookies } from 'next/headers';
-import { storeThemeCookie } from '../../utils/cookies';
 import { ThemeToggleButton } from './ThemeToggleButton';
 
 export const metadata = {
