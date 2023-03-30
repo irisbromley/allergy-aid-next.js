@@ -167,6 +167,7 @@ export default function DailyLogForm(props: {
         }
 
         router.push(`/daily-log/${props.personID}`);
+        router.refresh();
       }}
     >
       {errors.map((error) => (
@@ -209,17 +210,17 @@ export default function DailyLogForm(props: {
           </div>
         </div>
         <div className="mb-4">
-          <p className="block text-gray-700 text-sm font-bold mb-2">
-            Severity {severity}:
-          </p>
+          <div className="block text-gray-700 text-sm font-bold mb-2">
+            Severity <span className="text-violet-700">{severity}</span>:
+          </div>
 
           <label className="block text-gray-700 text-sm font-bold mb-2">
             <input
               required
               placeholder="Severity"
-              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-neutral-200 accent-violet-700 "
+              className="h-1.5 w-full cursor-pointer appearance-none rounded-lg border-transparent bg-violet-200 accent-violet-700 "
               type="range"
-              min={1}
+              min={0}
               max={4}
               value={severity}
               onChange={(event) => setSeverity(+event.currentTarget.value)}

@@ -1,21 +1,20 @@
 import { Cousine } from 'next/font/google';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getDailyLogByID } from '../../../../../database/daily-logs';
 import { getPersonByID } from '../../../../../database/users';
 import DailyLogForm from '../../new/DailyLogForm';
 
+//
 type Props = { params: { dailyLogID: string; personID: number } };
 const cousine = Cousine({ subsets: ['latin'], weight: '400' });
 export default async function EditDailyLogPage({ params }: Props) {
   const dailyLog = await getDailyLogByID(+params.dailyLogID, +params.personID);
   const person = await getPersonByID(+params.personID);
   console.log(dailyLog);
-  const router = useRouter();
 
   if (!dailyLog || !person) {
     notFound();
   }
-  router.refresh();
 
   return (
     <main>
