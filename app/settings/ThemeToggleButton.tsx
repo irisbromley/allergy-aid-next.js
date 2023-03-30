@@ -6,7 +6,7 @@ export function ThemeToggleButton(props: { theme: string }) {
   const router = useRouter();
   console.log(props.theme);
   return (
-    <div className="flex ">
+    <div className="flex gap-x-4 mb-6">
       <button
         className={
           props.theme === 'dark'
