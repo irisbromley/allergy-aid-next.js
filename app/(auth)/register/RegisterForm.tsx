@@ -45,7 +45,7 @@ export default function RegisterForm() {
 
       {/*  */}
       <div className="w-full h-full md:max-w-lg mx-auto mt-16 ">
-        <div className="bg-white rounded px-4 pt-8 pb-8 mb-4">
+        <div className=" rounded px-4 pt-8 pb-8 mb-4">
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               <input

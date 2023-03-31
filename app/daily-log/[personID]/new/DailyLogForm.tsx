@@ -181,7 +181,7 @@ export default function DailyLogForm(props: {
       ))}
 
       {/*  */}
-      <div className="w-full max-w-md md:max-w-lg mx-auto px-6">
+      <div className="w-full max-w-md md:max-w-lg mx-auto px-6 mt-8">
         <div className="bg-white rounded  mb-4">
           <div className="mb-4">
             <div

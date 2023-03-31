@@ -28,7 +28,7 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
           key={`item -${dailyLog.id}`}
           className="w-full max-w-md md:max-w-lg mx-auto"
         >
-          <div className="px-8 pt-6 pb-8 mb-6">
+          <div className="px-8  pb-8 mb-6 mt-8">
             <div>
               <div className="text-gray-600 text-sm mb-2 dark:text-gray-300">
                 {formatDate(dailyLog.date)}
