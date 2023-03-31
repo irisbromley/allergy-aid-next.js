@@ -30,7 +30,7 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
         >
           <div className="px-8 pt-6 pb-8 mb-6">
             <div>
-              <div className="text-gray-600 text-sm mb-2">
+              <div className="text-gray-600 text-sm mb-2 dark:text-gray-300">
                 {formatDate(dailyLog.date)}
               </div>
               <div className="mb-4">{dailyLog.notes} </div>
@@ -63,7 +63,7 @@ export function DailyLogsList(props: { personID: number; logs: any[] }) {
                 </Link>
                 <button
                   onClick={() => deleteLog(dailyLog.id)}
-                  className="text-orange-400 hover:bg-orange-600 hover:text-white bg-white font-bold py-1 px-3 rounded border-solid focus:outline-none "
+                  className="text-orange-400 hover:bg-orange-600 hover:text-white bg-white font-bold py-1 px-3 rounded border-solid focus:outline-none dark:text-white  dark:bg-orange-400 dark:hover:bg-orange-600"
                 >
                   {' '}
                   <svg

@@ -8,7 +8,6 @@ type User = {
   passwordHash: string;
 };
 
-
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<{ id: number; email: string }[]>`
   SELECT
