@@ -41,13 +41,9 @@ export default async function RootLayout({
         <main className=" dark:text-white flex-1 pt-8">{children}</main>
 
         <footer className="">
-          <div className="w-full bg-gray-100  dark:bg-teal-800 ">
+          <div className="w-full bg-gray-100  dark:bg-gray-800 ">
             <div className="  text-teal-600 dark:text-teal-400 max-w-4xl m-auto flex justify-between items-center px-6 py-6 mt-6">
-              <p className="text-sm">
-                Allergy Aid, your daily Allergy Symptoms Tracker. Get better
-                control over your allergies and live a better live. <br />
-                Made with ❤️ by Iris
-              </p>
+              <p className="text-sm">Allergy Aid - Made with ❤️ by Iris</p>
             </div>
           </div>
         </footer>
