@@ -17,6 +17,11 @@ Allergy Aid was built using the following technologies:
 - HTML, Tailwind, TypeScript for the frontend
 - Node.js and PostgreSQL for the backend
 
+## Database Planning:
+
+For the Database planning I used DrawSQL:
+![Picture of the database layout](drawSQLDatabase.png)
+
 ### Multiple User Support
 
 In addition, Allergy Aid also supports the ability for one user to log symptoms for multiple individuals. This feature allows for more comprehensive tracking of allergies and can provide important information for medical professionals. For example, a parent can log symptoms for their children or a caretaker can log symptoms for their clients.
